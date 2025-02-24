@@ -1,0 +1,659 @@
+<%- include('../common/header.ejs'); %>
+<style>
+  .user-chats-container {
+    max-height: 500px;
+    min-height: 500px;
+    /* Adjust the height as needed */
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    /* Optional styling */
+  }
+
+  .chats {
+    margin-bottom: 10px;
+  }
+</style>
+
+<body class="vertical-layout vertical-menu-modern content-left-sidebar navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="content-left-sidebar">
+
+  <!-- BEGIN: Header-->
+  <%- include('../common/navbar.ejs'); %>
+  <!-- END: Header-->
+  <!-- BEGIN: Main Menu Sidebar -->
+  <%- include('../common/sidebar.ejs'); %>
+  <!-- END: Main Menu Sidebar-->
+  <!-- BEGIN: Content-->
+  <div class="app-content content chat-application">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-area-wrapper container-xxl p-0">
+
+      <div class="sidebar-left">
+        <div class="sidebar">
+          <!-- Admin user profile area -->
+          <div class="chat-profile-sidebar">
+            <header class="chat-profile-header">
+              <span class="close-icon">
+                <i data-feather="x"></i>
+              </span>
+              <!-- User Information -->
+              <div class="header-profile-sidebar">
+                <div class="avatar box-shadow-1 avatar-xl avatar-border">
+                  <img src="../<%-session.image%>" alt="user_avatar" />
+                  <span class="avatar-status-online avatar-status-xl"></span>
+                </div>
+                <h4 class="chat-user-name"><%-session.first_name%> <%-session.last_name%>
+                </h4>
+                <span class="user-post">Admin</span>
+              </div>
+              <!--/ User Information -->
+            </header>
+            <!-- User Details start -->
+            <div class="profile-sidebar-area">
+              <h6 class="section-label mb-1">About</h6>
+              <div class="about-user">
+                <textarea data-length="120" class="form-control char-textarea" id="textarea-counter" rows="5" placeholder="About User">
+<%-session.about_me%></textarea>
+                <small class="counter-value float-end"><span class="char-count">108</span> /
+                  120 </small>
+              </div>
+              <!-- To set user status -->
+              <h6 class="section-label mb-1 mt-3">Status</h6>
+              <ul class="list-unstyled user-status">
+                <li class="pb-1">
+                  <div class="form-check form-check-success">
+                    <input type="radio" id="activeStatusRadio" name="userStatus" class="form-check-input" value="online" checked />
+                    <label class="form-check-label ms-25" for="activeStatusRadio">Active</label>
+                  </div>
+                </li>
+                <li class="pb-1">
+                  <div class="form-check form-check-danger">
+                    <input type="radio" id="dndStatusRadio" name="userStatus" class="form-check-input" value="busy" />
+                    <label class="form-check-label ms-25" for="dndStatusRadio">Do Not
+                      Disturb</label>
+                  </div>
+                </li>
+                <li class="pb-1">
+                  <div class="form-check form-check-warning">
+                    <input type="radio" id="awayStatusRadio" name="userStatus" class="form-check-input" value="away" />
+                    <label class="form-check-label ms-25" for="awayStatusRadio">Away</label>
+                  </div>
+                </li>
+                <li class="pb-1">
+                  <div class="form-check form-check-secondary">
+                    <input type="radio" id="offlineStatusRadio" name="userStatus" class="form-check-input" value="offline" />
+                    <label class="form-check-label ms-25" for="offlineStatusRadio">Offline</label>
+                  </div>
+                </li>
+              </ul>
+              <!--/ To set user status -->
+
+              <!-- User settings -->
+              <h6 class="section-label mb-1 mt-2">Settings</h6>
+              <ul class="list-unstyled">
+                <li class="d-flex justify-content-between align-items-center mb-1">
+                  <div class="d-flex align-items-center">
+                    <i data-feather="check-square" class="me-75 font-medium-3"></i>
+                    <span class="align-middle">Two-step Verification</span>
+                  </div>
+                  <div class="form-check form-switch me-0">
+                    <input type="checkbox" class="form-check-input" id="customSwitch1" checked />
+                    <label class="form-check-label" for="customSwitch1"></label>
+                  </div>
+                </li>
+                <li class="d-flex justify-content-between align-items-center mb-1">
+                  <div class="d-flex align-items-center">
+                    <i data-feather="bell" class="me-75 font-medium-3"></i>
+                    <span class="align-middle">Notification</span>
+                  </div>
+                  <div class="form-check form-switch me-0">
+                    <input type="checkbox" class="form-check-input" id="customSwitch2" />
+                    <label class="form-check-label" for="customSwitch2"></label>
+                  </div>
+                </li>
+                <li class="mb-1 d-flex align-items-center cursor-pointer">
+                  <i data-feather="user" class="me-75 font-medium-3"></i>
+                  <span class="align-middle">Invite Friends</span>
+                </li>
+                <li class="d-flex align-items-center cursor-pointer">
+                  <i data-feather="trash" class="me-75 font-medium-3"></i>
+                  <span class="align-middle">Delete Account</span>
+                </li>
+              </ul>
+              <!--/ User settings -->
+              <!-- Logout Button -->
+              <div class="mt-3">
+                <button class="btn btn-primary">
+                  <span>Logout</span>
+                </button>
+              </div>
+              <!--/ Logout Button -->
+            </div>
+            <!-- User Details end -->
+          </div>
+          <!--/ Admin user profile area -->
+          <!-- Chat Sidebar area -->
+          <div class="sidebar-content">
+            <span class="sidebar-close-icon">
+              <i data-feather="x"></i>
+            </span>
+            <!-- Sidebar header start -->
+            <div class="chat-fixed-search">
+              <div class="d-flex align-items-center w-100">
+                <div class="sidebar-profile-toggle">
+                  <div class="avatar avatar-border">
+                    <img src="..<%-session.image%>" alt="user_avatar" height="42" width="42" />
+                    <span class="avatar-status-online"></span>
+                  </div>
+                </div>
+                <div class="input-group input-group-merge ms-1 w-100">
+                  <span class="input-group-text round"><i data-feather="search" class="text-muted"></i></span>
+                  <input type="text" class="form-control round searchInput" id="chat-search" placeholder="Search or start a new chat" aria-label="Search..." aria-describedby="chat-search" />
+                </div>
+              </div>
+            </div>
+            <!-- Sidebar header end -->
+            <!-- Sidebar Users start -->
+            <div id="users-list" class="chat-user-list-wrapper list-group">
+              <h4 class="chat-list-title">Chats</h4>
+              <ul class="chat-users-list chat-list media-list" id="users-list"></ul>
+            </div>
+            <!-- Sidebar Users end -->
+          </div>
+          <!--/ Chat Sidebar area -->
+
+        </div>
+      </div>
+      <div class="content-right">
+        <div class="content-wrapper container-xxl p-0">
+          <div class="content-header row">
+          </div>
+          <div class="content-body">
+            <div class="body-content-overlay"></div>
+            <!-- Main chat area -->
+            <section class="chat-app-window">
+              <!-- To load Conversation -->
+              <div class="start-chat-area">
+                <div class="mb-1 start-chat-icon">
+                  <i data-feather="message-square"></i>
+                </div>
+                <h4 class="sidebar-toggle start-chat-text">Start Conversation</h4>
+              </div>
+
+              <!--/ To load Conversation -->
+              <div class="start-chat-area1"></div>
+
+            </section>
+            <!--/ Main chat area -->
+
+            <!-- User Chat profile right area -->
+            <div class="user-profile-sidebar">
+              <header class="user-profile-header">
+                <span class="close-icon">
+                  <i data-feather="x"></i>
+                </span>
+                <!-- User Profile image with name -->
+
+                <!--/ User Profile image with name -->
+              </header>
+              <div class="user-profile-sidebar-area">
+
+                <!--/ User's Links -->
+              </div>
+            </div>
+            <!--/ User Chat profile right area -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END: Content-->
+
+  <div class="sidenav-overlay"></div>
+  <div class="drag-target"></div>
+
+  <%- include('../common/footer.ejs'); %>
+
+  <script>
+    var listing_data = {
+      "sender_id": "<%-session.id%>",
+      "sender_type": "admin"
+    }
+    socket.emit('inbox', listing_data);
+    socket.on("inbox", chat_listing => {
+      var chatdata = chat_listing.getdata
+      appenddata(chatdata)
+      const searchInput = document.querySelector('.searchInput');
+      searchInput.addEventListener('input', () => {
+        const searchQuery = searchInput.value.toLowerCase();
+        let filteredData = chatdata.filter(postdata =>
+          postdata.receiverfName.toLowerCase().includes(searchQuery)
+        );
+        if (filteredData) {
+          appenddata(filteredData)
+        }
+      })
+
+      function appenddata(data) {
+        let html = ``;
+
+        if (data.length == 0) {
+          html += `
+  <li class="no-results">
+      <h6 class="mb-0">No Chats Found</h6>
+  </li>`;
+        } else {
+          if (data.length == 0) {
+            html += `
+  <li class="no-results">
+      <h6 class="mb-0">No Chats Found</h6>
+  </li>`;
+          } else {
+            for (let i in data) {
+
+              if (data[i].role == 2) {
+
+              let image = `..${data[i].receiverImage}`;
+              let lastmsg = '';
+              if (data[i].messageType == 0) {
+                lastmsg = data[i].lastMessageId;
+              } else if (
+                data[i].messageType == 1 ||
+                data[i].messageType == 2 ||
+                data[i].messageType == 3 ||
+                data[i].messageType == 4 ||
+                data[i].messageType == 5 ||
+                data[i].messageType == 6
+              ) {
+                lastmsg = "File";
+              } else {
+                lastmsg = "";
+              }
+              let online_status = ''
+              if (data[i].is_online == "online") {
+                online_status = `<span class="avatar-status-online"></span>`
+
+              } else {
+                online_status = `<span class="avatar-status-offline"></span>`
+
+              }
+              let count = ''
+              if (data[i].unread_msg == 0) {
+
+                count = ''
+              } else {
+
+                count = `<span class="badge bg-danger rounded-pill float-end">${data[i].unread_msg}</span>`
+
+              }
+              let m = moment(data[i].updatedAt).fromNow();
+
+              html += `
+  <li class="media" id='userId' data-id="${data[i].receiver_user_id}" data-image='${image}' data-name='${data[i].receiverfName} ${data[i].receiverlName}'>
+      <span class="avatar">
+          <img src="${image}" height="42" width="42" alt="Generic placeholder image" />
+          ${online_status}
+      </span>
+      <div class="chat-info flex-grow-1">
+          <h5 class="mb-0">${data[i].receiverfName} ${data[i].receiverlName}</h5>
+          <p class="card-text text-truncate">
+                        ${lastmsg}
+                    </p>
+      </div>
+      <div class="chat-meta text-nowrap">
+          <small class="float-end mb-25 chat-time">${m}</small>
+                   ${count}
+      </div>
+  </li>`;
+            }
+          }
+        }
+          $('#users-list').html(html);
+        }
+        // Using jQuery's on() method for event delegation
+        $(document).on('click', '.media', function(data) {
+          let userId = $(this).data('id');
+          let userName = $(this).data('name');
+          let userImage = $(this).data('image');
+
+          myFunction(userId, userName, userImage)
+        });
+
+        function myFunction(id, name, image) {
+          const receiverUserId = id
+          let receiverName = name; // Get the receiver name
+          let receiverImage = image
+
+          var get_message_data = {
+            "sender_id": "<%-session.id%>",
+            "sender_type": "admin",
+            "receiver_id": receiverUserId,
+            "receiver_type": "user"
+          }
+          socket.emit('message_listing', get_message_data);
+          var listing_data = {
+            "sender_id": "<%-session.id%>",
+            "sender_type": "admin"
+          }
+          socket.emit('inbox', listing_data);
+
+          //     ///////////////////////////////////////////////////////////
+          socket.on("message_listing", response => {
+            let htmlContent = ``;
+            let arrayresponse = response.listing;
+
+            for (var key in arrayresponse) {
+              let messageData = arrayresponse[key];
+              let chatType = '';
+              let time = moment(messageData.createdAt).fromNow();
+
+              // Determine the type of message (Text, Image, Video, etc.)
+              if (messageData.message_type == 0) {
+                // Text message
+                chatType = `<p>${messageData.message}</p>`;
+              } else if (messageData.message_type == 1) {
+                // Image message
+                chatType = `<a href="${messageData.message}" download  style="background-color: black; display: inline-block;">
+                <img src="${messageData.message}" alt="image" height="100" width="100" />
+              </a>`;
+              } else if (messageData.message_type == 2) {
+                // Video message
+                chatType = `<a href="${messageData.message}" download  style="background-color: black; display: inline-block;">
+                <video width="100" height="100" controls>
+                  <source src="${messageData.message}" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </a>`;
+              } else if (messageData.message_type == 3) {
+                // Audio message
+                chatType = `<a href="${messageData.message}" download  style="background-color: black; display: inline-block;">
+                <audio controls>
+                  <source src="${messageData.message}" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                </audio>
+              </a>`;
+              } else if (messageData.message_type == 4) {
+                // PDF message
+                chatType = `<a href="${messageData.message}" download="document.pdf"  style="background-color: black; display: inline-block;">
+                <img src="/assets/fonts/pdf.jpg" height="100" width="100" alt="PDF" />
+              </a>`;
+              } else if (messageData.message_type == 5) {
+                // Document message
+                chatType = `<a href="${messageData.message}" download="document.docx"  style="background-color: black; display: inline-block;">
+                <img src="/assets/fonts/doc.png" height="100" width="100" alt="Document" />
+              </a>`;
+              } else if (messageData.message_type == 6) {
+                // Excel message
+                chatType = `<a href="${messageData.message}" download="document.xlsx"  style="background-color: black; display: inline-block;">
+                <img src="/assets/fonts/xlsx.png" height="100" width="100" alt="Excel" />
+              </a>`;
+              }
+
+              // Determine the side (right for senderRole 0, left for others)
+              if (messageData.senderRole == 0) {
+                // Right-side chat (for senderRole 0)
+                htmlContent += `
+        <div class="chats">
+          <div class="chat chat-right">
+            <div class="chat-body">
+              <div class="chat-content">
+                ${chatType}
+                <br><i>${time}</i>
+              </div>
+            </div>
+            <div class="chat-avatar">
+              <span class="avatar box-shadow-1 cursor-pointer">
+                <img src="..${messageData.senderImage}" alt="avatar" height="36" width="36" />
+              </span>
+            </div>
+          </div>
+        </div>`;
+              } else {
+                // Left-side chat (for other roles)
+                htmlContent += `
+        <div class="chats">
+          <div class="chat chat-left">
+            <div class="chat-avatar">
+              <span class="avatar box-shadow-1 cursor-pointer">
+                <img src="..${messageData.receiverImage}" alt="avatar" height="36" width="36" />
+              </span>
+            </div>
+            <div class="chat-body">
+              <div class="chat-content">
+                ${chatType}
+                <br><i>${time}</i>
+              </div>
+            </div>
+          </div>
+        </div>`;
+              }
+            }
+            $(".user-chats").html(htmlContent);
+            // Scroll to the bottom of the chat container
+            let chatContainer = document.querySelector('.user-chats-container');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+          });
+          // /////
+
+          var chatSendButton = `<div class="input-group input-group-merge me-1 form-send-message">
+        <span class="input-group-text cp"><div class="up_load33" id="inpfile">
+          <input class="btn-btn-primary" accept="image/*,video/*,.pdf,.xlsx,.doc,.csv" type="file" id="attachment"  onchange="fileSelected(this)" hidden /> 
+          <i id="btnAttachment"  onclick="openAttachment()" class="fas fa-paperclip"></i> 
+        </div></span>
+        <textarea type="text"   rows="2" cols="4" class="form-control" placeholder="Type a message" id="message"></textarea>
+        <input type="hidden" id="msgType" name="msgType" value="0">
+	 		<input type="hidden" id="extension" name="extension" value="">
+      <input type="hidden" id="chatreciever" class="form-control" > 
+           
+        <button type="" class="btn btn-primary send" onclick="enterChat();">
+        <i  class="fa-regular fa-paper-plane"></i>
+        <span class="d-none d-lg-block"></span>
+    </button>
+    </div>
+
+
+    </div>`
+
+          $('.start-chat-area').hide()
+          let html2 = `
+    <div class="active-chat">
+        <!-- Chat Header -->
+        <div class="chat-navbar">
+            <header class="chat-header">
+                <div class="d-flex align-items-center">
+                    <div class="sidebar-toggle d-block d-lg-none me-1">
+                        <i data-feather="menu" class="font-medium-5"></i>
+                    </div>
+                    <div class="avatar avatar-border user-profile-toggle m-0 me-1">
+                        <img src="${receiverImage}" alt="avatar" height="36" width="36" />
+                        <span class="avatar-status-busy"></span>
+                    </div>
+                    <h6 class="mb-0">${receiverName} </h6>
+            <input id="receiverUserId" hidden name="receiverUserId" value="${receiverUserId}">
+                 
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown">
+                        <button class="btn-icon btn btn-transparent hide-arrow btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i data-feather="more-vertical" id="chat-header-actions" class="font-medium-2"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="chat-header-actions">
+                            <a class="dropdown-item" href="#">Block Contact</a>
+                            <a class="dropdown-item" href="#">Report</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+  
+     <div class="user-chats-container">
+    <div class="user-chats"></div>
+</div>
+${chatSendButton}
+   
+`; 
+          $('.start-chat-area1').html(html2).show();
+        }
+      }
+
+    });
+
+
+
+  $('.chat-form').html(chatSendButton);
+    /////file upload
+    function fileSelected(input) {
+  var file = input.files[0];
+  const formData = new FormData();
+  formData.append('file', file);
+
+  $.ajax({
+    type: "POST",
+    url: "/Admin/fileUpload_message",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(response) {
+      console.log(response);
+      document.getElementById('msgType').value = response.type;
+      document.getElementById('message').value = response.name;
+      
+      // After sending the file, enable the message input and show the attachment option again
+      document.getElementById('message').disabled = false;
+      document.getElementById('inpfile').style.display = 'block';
+      document.getElementById('submit').style.display = 'none';
+    },
+    error: function(response) {
+      console.log(response);
+    }
+  });
+
+  // Disable the message input and hide the file input temporarily
+  document.getElementById('message').disabled = true;
+  document.getElementById('inpfile').style.display = 'none';
+  document.getElementById('submit').style.display = 'block';
+}
+    function openAttachment() {
+      document.getElementById('attachment').click();
+    }
+    function enterChat() {
+  var message = $('#message').val();
+  let chatReceiverId = document.getElementById('receiverUserId').value;
+  var senderId = "<%- session.id %>"; // Your sender ID from session
+  let getMsgType = document.getElementById('msgType') ? document.getElementById('msgType').value : '';
+  let extension = document.getElementById('extension') ? document.getElementById('extension').value : '';
+
+  if (message.trim() === '') {
+    return; // Don't send empty messages
+  }
+
+  var messageData = {
+    "sender_id": senderId,
+    "receiver_id": chatReceiverId,
+    "sender_type": "admin",
+    "receiver_type": "user",
+    "message": message,
+    "message_type": getMsgType,
+    "extension": extension
+  };
+
+  // Clear the message input and reset the file input
+  $('#message').val('');
+  document.getElementById('msgType').value = '0'; // Reset msgType to text
+  document.getElementById('message').disabled = false; // Re-enable text input
+  document.getElementById('inpfile').style.display = 'block'; // Show file input
+
+  // Emit the message to the server
+  socket.emit('send_message', messageData);
+
+  // Scroll the chat window to the bottom
+  var chatContainer = document.querySelector('.user-chats-container');
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // Update the chat list on message confirmation
+  socket.on('send_message', function(data) {
+    var messageListingData = {
+      "sender_id": senderId,
+      "sender_type": "admin",
+      "receiver_id": chatReceiverId,
+      "receiver_type": "user"
+    };
+
+    socket.emit('message_listing', messageListingData);
+
+    // Scroll to the bottom after updating the chat
+    $(".chat-content").animate({
+      scrollTop: $(".chat-content").prop("scrollHeight")
+    }, "fast");
+
+    var listingData = {
+      "sender_id": senderId,
+      "sender_type": "admin"
+    };
+    socket.emit('inbox', listingData);
+  });
+}
+  </script>
+
+  <script>
+    function enterChat(params) {
+
+      var message = $('#message').val();
+      let chatReceiverId = document.getElementById('receiverUserId').value;
+      // Assuming this is the receiver's input field
+      var senderId = "<%- session.id %>"; // Your sender ID from session
+      // Check if msgType and extension elements exist before accessing their value
+      let getMsgType = document.getElementById('msgType') ? document.getElementById('msgType').value : '';
+      let extension = document.getElementById('extension') ? document.getElementById('extension').value : '';
+
+      if (message.trim() === '') {
+        return; // Don't send empty messages
+      }
+      // Create message data object
+      var messageData = {
+        "sender_id": senderId,
+        "receiver_id": chatReceiverId,
+        "sender_type": "admin", // You can modify this based on your system
+        "receiver_type": "user",
+        "message": message,
+        "message_type": getMsgType,
+        "extension": extension
+      };
+      // Clear the message input
+      $('#message').val('');
+
+      // Emit the message to the server
+      socket.emit('send_message', messageData);
+
+      // Scroll the chat window to the bottom
+      var chatContainer = document.querySelector('.user-chats-container');
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      // Listen for message confirmation or response
+      socket.on('send_message', function(data) {
+        var messageListingData = {
+          "sender_id": senderId,
+          "sender_type": "admin",
+          "receiver_id": chatReceiverId,
+          "receiver_type": "user"
+        };
+
+        // Emit event to update the message listing (messages list)
+        socket.emit('message_listing', messageListingData);
+
+        // Scroll to the bottom after updating the chat
+        $(".chat-content").animate({
+          scrollTop: $(".chat-content").prop("scrollHeight")
+        }, "fast");
+
+        // Optionally, update chat listing if necessary
+        var listingData = {
+          "sender_id": senderId,
+          "sender_type": "admin"
+        };
+        socket.emit('inbox', listingData);
+      });
+    }
+  </script>

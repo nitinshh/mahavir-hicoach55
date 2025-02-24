@@ -1,0 +1,210 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Transactions Listing</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="content-body">
+                            <!-- Basic table -->
+                            <section id="basic-datatable">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+
+                                            <!-- <a class="leftbtn" style="margin-left: 88%;"href="/admin/category"> <button class="btn-sm btn-success">Add category</button></a> -->
+                                            <div class="table-responsive">
+                                                <table class="table" id="myTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S.No</th>
+                                                            <th>Student Name</th>
+                                                            <th>Coach Name</th>
+                                                            <th>Sport</th>
+                                                            <th>TranstionId</th>  
+                                                            <th>Session Id</th>  
+                                                            <th>Transaction Amount</th>
+                                                            <th>Commission(%)</th>
+                                                            <th>Commission Amount</th>
+                                                            <th>Coach earning</th>
+                                                            <th>Payment Method</th>
+                                                            <th>Payment Status</th>
+                                                            <th>Date And Time </th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <% find_transaction.forEach(function(transaction, i){ %>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <%= i+1 %>
+                                                            </th>
+                                                            <td>
+                                                                <%-transaction?.student_details?.first_name%> <%-transaction?.student_details?.last_name%>
+                                                            </td>
+                                                            <td>
+                                                                <%-transaction?.coach_details?.first_name%> <%-transaction?.coach_details?.last_name%>
+                                                            </td>
+                                                            <td>Tennis</td>
+                                                            <td>
+                                                                <%-transaction?.transaction_id%>
+                                                            </td>
+                                                            <td>  <%-transaction?.booking_id%></td>
+                                                            
+                                                            <td>$<%-transaction?.amount%></td>
+                                                            <td><%-transaction?.commission%></td>
+                                                            <td>$<%-transaction?.commission_amount%></td>
+                                                            <td>$<%-transaction?.coach_amount%></td>
+                                                            <td>Card</td>
+                                                            
+                                                            <td>
+                                                                
+                                                                
+                                                                <% if (transaction?.payment_status == 1) { %>
+                                                                    <li style="margin:0px;" class="btn btn-sm btn-success">Pending</li>
+                                                                <% } else if (transaction?.payment_status == 2 ) { %>
+                                                                    <li style="margin:0px;" class="btn btn-sm btn-danger">Completed</li>
+                                                                <% } else { %>
+                                                                    <li style="margin:0px;" class="btn btn-sm btn-danger">Pending</li>
+                                                                <% } %>
+                                                                
+                                                                </td>
+
+                                                                <td> <%- moment(transaction.createdAt).format('DD/MM/YYYY mm:ss'); %></td>
+
+                                                            <td>
+                                                                <a href="/admin/transactionview/<%-transaction.id%>"
+                                                                    style="margin:0px;"
+                                                                    class="btn btn-sm btn-success">View</a>
+                                                                <!-- <button onclick="deleteUser('<%-transaction.id%>')"
+                                                                    style="margin:0px;"
+                                                                    class="btn btn-sm btn-danger deletdat>">Delete</button> -->
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--/ Basic table -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+             
+                   
+                   <!-- DATA TABLE  -->
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "pageLength": 100,
+        dom: 'Bfrtip',
+        buttons: [{
+          extend: 'collection',
+          text: 'Export',
+          buttons: [{
+              extend: 'pdf',
+              text: 'Export to PDF',
+              className: 'btn-export-left',
+            },
+            {
+              extend: 'excel',
+              text: 'Export to Excel'
+            }
+          ]
+        }]
+      });
+    });
+  </script>
+                    <!-- DATA USER DELETED  -->
+                    <script>
+                        function deleteUser(category_id) {
+                            // alert(category_id)
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success",
+                                    cancelButton: "btn btn-danger"
+                                },
+                                buttonsStyling: false
+                            });
+                            swalWithBootstrapButtons.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel!",
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/admin/deletedgame",
+                                        data: {
+                                            id: category_id,
+                                            is_deleted: 1
+                                        },
+                                        success: function (response) {
+                                            ;
+                                            if (response == true) {
+                                                swalWithBootstrapButtons.fire({
+                                                    title: "Deleted!",
+                                                    text: "Your game  has been deleted.",
+                                                    icon: "success"
+                                                }).then((suc) => {
+                                                    location.reload()
+                                                });
+
+                                            }
+                                        },
+                                        error: function (response) {
+
+                                        }
+                                    });
+
+                                } else if (
+                                    /* Read more about handling dismissals below */
+                                    result.dismiss === Swal.DismissReason.cancel
+                                ) {
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Cancelled",
+                                        text: "Your game is safe :)",
+                                        icon: "error"
+                                    });
+                                }
+                            });
+                        }
+                    </script>

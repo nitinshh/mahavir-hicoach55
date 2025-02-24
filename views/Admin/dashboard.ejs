@@ -1,0 +1,221 @@
+
+<%- include('common/header.ejs'); %>
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+        <%- include('common/navbar.ejs'); %>
+            <%- include('common/sidebar.ejs'); %>
+                <div class="app-content content ">
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-body">
+                            <section id="dashboard-analytics">
+                                <div class="row match-height">
+                                    <div onclick="toggleStudentGraph(0, 1)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-primary p-50 m-0 fs-1 p-1">
+                                                <i data-feather="user" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-newUser%></h2>
+                                                <p class="card-text text-dark">New Student</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleCoachGraph(0, 2)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-info p-50 m-0 fs-1 p-1">
+                                                <i data-feather="users" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-newCoach%></h2>
+                                                <p class="card-text text-info">New Coach</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleActiveStudentGraph(0, 3)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar p-50 m-0 fs-1 p-1" style="color: #24ad97; background-color:#cac1c1">
+                                                <i data-feather="user" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-activeStudent%></h2>
+                                                <p class="card-text" style="color: #24ad97;">Active Students</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleActiveCoachGraph(0, 4)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar p-50 m-0 fs-1 p-1" style="color: #24ad97; background-color:#cac1c1">
+                                                <i data-feather="user" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-activeCoach%></h2>
+                                                <p class="card-text" style="color: #24ad97;">Active Coaches</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleRetentionRate(0)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar p-50 m-0 fs-1 p-1" style="color: #eb08af; background-color:#cac1c1">
+                                                <i data-feather="user" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-retentionRate%>%</h2>
+                                                <p class="card-text" style="color: #eb08af;">Retention Rate</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleSessionCompletion(0, 'complete')" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar p-50 m-0 fs-1 p-1" style="color: #a4d6ec; background-color:#c9c6c6">
+                                                <i data-feather="user" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-SessionCompletion%>%</h2>
+                                                <p class="card-text" style="color: #a4d6ec;">Session Completion</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleTotalRevenue(0, 'Revenue')" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-primary p-50 m-0 fs-1 p-1">
+                                                <i data-feather="dollar-sign" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0">SGD <%-AmountSpent%></h2>
+                                                <p class="card-text text-dark">Total Revenue</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleAverageTransaction(0)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar  p-50 m-0 fs-1 p-1" style="color: #f45c1b; background-color:#ded0d0">
+                                                <i data-feather="users" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-Averagetransaction%></h2>
+                                                <p class="card-text " style="color: #eb1f08;">Average Transaction</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div onclick="Customer_lifetime()" class="col-lg-3 col-sm-6 col-12 mb-2">
+
+                                        <div
+                                            class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-success p-50 m-0 fs-1 p-1">
+                                                <i data-feather="users" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-Customerlifetime%></h2>
+                                                <p class="card-text text-success">Customer lifetime value</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div onclick="toggleChurnRate(0)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-danger p-50 m-0 fs-1 p-1">
+                                                <i data-feather="users" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-churnRate%>%</h2>
+                                                <p class="card-text text-danger">Churn Rate</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="toggleReferralGraph(0,5)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-secondary p-50 m-0 fs-1 p-1">
+                                                <i data-feather="users" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-referral%></h2>
+                                                <p class="card-text text-secondary">Referral</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="cantact_graph()" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div
+                                            class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-warning p-50 m-0 fs-1 p-1">
+                                                <i data-feather="box" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-contactusCount%></h2>
+                                                <p class="card-text text-warning"> Customer Support</p>
+                                            </div>
+                                        </div>
+                                        </a>
+                                    </div>
+                                    <div onclick="window.location.href='/admin/list_app_downtime'" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                          <div class="price_sets avatar bg-light-success p-50 m-0 fs-1 p-1">
+                                            <i data-feather="users" class="font-medium-5"></i>
+                                          </div>
+                                          <div class="d-flex flex-column">
+                                            <h2 class="fw-bolder mb-0"><%- downtimeCount %></h2>
+                                            <p class="card-text text-success">Downtime</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      
+                                    <div onclick="distribution()" class="col-lg-3 col-sm-6 col-12 mb-2">
+
+                                        <div
+                                            class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-success p-50 m-0 fs-1 p-1">
+                                                <i data-feather="users" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-sports1%></h2>
+                                                <p class="card-text text-success">Distribution</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div onclick="toggleTopLocation(0)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-success p-50 m-0 fs-1 p-1">
+                                                <i data-feather="map" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-topCity %></h2>
+                                                <p class="card-text text-success">Top Locations</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div onclick="GrowthRate(0)" class="col-lg-3 col-sm-6 col-12 mb-2">
+                                        <div class="align-items-center d-flex gap-1 p-1 rounded-3 shadow-lg top_bubbles">
+                                            <div class="price_sets avatar bg-light-success p-50 m-0 fs-1 p-1">
+                                                <i data-feather="map" class="font-medium-5"></i>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <h2 class="fw-bolder mb-0"><%-growth.userGrowthPercentage%>%</h2>
+                                                <p class="card-text">(User Growth)</p>
+                                                <h2 class="fw-bolder mb-0"><%-growth.revenueGrowthPercentage%>%</h2>
+                                                <p class="card-text">(Revenue Growth)</p>
+                                                <p class="card-text text-success">Growth Rate</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="graph_appended"></div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            <%- include('common/footer.ejs'); %>
+        <%- include('common/graph.ejs'); %>
+    </body>
+    <script>
+    </script>

@@ -1,0 +1,171 @@
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+<!-- BEGIN: Footer-->
+<footer class="footer footer-static footer-light">
+  <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2024<a
+        class="ms-25" href="/admin/dashboard  " target="_blank">HiCoach</a><span class="d-none d-sm-inline-block">,
+        All rights Reserved</span></span><span class="float-md-end d-none d-md-block">HiCoach<i
+        data-feather="heart"></i></span></p>
+</footer>
+<button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
+<!-- END: Footer-->
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <span class="closed">BACK</span>
+  <img class="modal-content" id="img01">
+  <div id="caption">sad</div>
+</div>
+
+<!-- BEGIN: Vendor JS-->
+<script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+<!-- BEGIN Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<script src="../../../app-assets/vendors/js/extensions/toastr.min.js"></script>
+<script src="../../../app-assets/vendors/js/extensions/moment.min.js"></script>
+<script src="../../../app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+<script src="../../../app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+<script src="../../../app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+<script src="../../../app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+<script src="../../../app-assets/vendors/js/tables/datatable/responsive.bootstrap4.js"></script>
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Theme JS-->
+<script src="../../../app-assets/js/core/app-menu.js"></script>
+<script src="../../../app-assets/js/core/app.js"></script>
+<!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<script src="../../../app-assets/js/scripts/pages/app-invoice-list.js"></script>
+<!-- END: Page JS-->
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script src="../../../app-assets/js/scripts/pages/app-chat.js"></script>
+
+<!-- Buttons JS -->
+<script type="text/javascript" charset="utf8"
+  src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" charset="utf8"
+  src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.flash.min.js"></script>
+<script type="text/javascript" charset="utf8"
+  src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+  integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+  integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"> </script>
+
+<!-- cart  -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apexcharts@3.49.1/dist/apexcharts.css">
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+<!-- DATA TABLES BUTTON LINKS  -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.5/vfs_fonts.js"></script>
+
+<!-- DATE PICKER  -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+
+<script>
+  $(window).on('load', function () {
+    if (feather) {
+      feather.replace({
+        width: 14,
+        height: 14
+      });
+    }
+  })
+</script>
+</body>
+<!-- END: Body-->
+
+</html>
+
+
+<script>
+  // Get the modal
+  // var modal = document.getElementById("myModal");
+
+  // // Get the image and insert it inside the modal - use its "alt" text as a caption
+  // var img = document.getElementById("myImg");
+  // var modalImg = document.getElementById("img01");
+  // var captionText = document.getElementById("caption");
+  // img.onclick = function () {
+  //   modal.style.display = "block";
+  //   modalImg.src = this.src;
+  //   captionText.innerHTML = this.alt;
+  // }
+  // var span = document.getElementsByClassName("closed")[0];
+  // span.onclick = function () {
+  //   modal.style.display = "none";
+  // }
+</script>
+
+
+<% if(messages.success){ %>
+  <script>
+
+
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "3000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "slideDown",
+      "hideMethod": "slideUp"
+    }
+    toastr.success('<%= messages.success%>')
+  </script>
+  <% } %>
+
+
+
+    <% if(messages.error){ %>
+      <script>
+
+
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": true,
+          "progressBar": true,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "3000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "slideDown",
+          "hideMethod": "slideUp"
+        }
+        toastr.error('<%= messages.error%>')
+      </script>
+      <% } %>

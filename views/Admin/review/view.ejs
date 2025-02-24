@@ -1,0 +1,167 @@
+<%- include('../common/header.ejs'); %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .checked {
+    color: orange;
+  }
+</style>
+
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+  <!-- BEGIN: Header-->
+  <%- include('../common/navbar.ejs'); %>
+  <!-- END: Header-->
+
+
+  <!-- BEGIN: Main Menu Sidebar -->
+  <%- include('../common/sidebar.ejs'); %>
+  <!-- END: Main Menu Sidebar-->
+
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+          <div class="row breadcrumbs-top">
+            <div class="col-12">
+              <h2 class="content-header-title float-start mb-0">Review View</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-body">
+        <section class="app-user-edit">
+
+          <!--  <h1>Booking detail</h1> -->
+          <div class="card">
+            <div class="card-body">
+
+
+              <div class="tab-content">
+                <!-- Account Tab starts -->
+                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+                  <!-- users edit account form start -->
+                  <form action="" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                    <h2>Basic Review Information</h2>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Review By
+                          </label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_review?.student_details?.first_name%> <%-find_review?.student_details?.last_name%>" name="" id="name">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Review To</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_review?.coach_details?.first_name%> <%-find_review?.coach_details?.last_name%>" name="name" id="name">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Review ID:</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_review?.id%>" name="name" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Session ID</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_review?.id%>" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+
+                    <h2>Review Content</h2>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Review</label>
+                          <textarea readonly name="" class="form-control" id=""><%-find_review?.review%></textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Rating :</label>
+                          <% for(var i=0; i < find_review?.rating; i++) { %>
+                          <span class="fa fa-star checked stared"></span>
+                          <% } %>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Feedback Category
+                          </label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="Communication" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Date of Review
+                          </label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%- moment(find_review.createdAt).format('DD/MM/YYYY'); %>" name="" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <h2>Session-Related Information</h2>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Session Duration
+                          </label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="1 hour, 90 minutes" name="" id="name">
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Session Type</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="part of a package," name="name" id="name">
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                          <div class="mb-1">
+                            <label class="form-label" for="name">Location
+                            </label>
+                            <input readonly required="text" class="form-control" placeholder="Name" value="coach location" name="" id="name">
+                          </div>
+                        </div>
+  
+                        
+  
+                      </div>
+
+                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                      <a style="margin-left: 47%;" href="/admin/reviewlisting" class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                    </div>
+                  </form>
+                  <!-- users edit account form ends -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+  <!-- END: Content-->
+  <%- include('../common/footer.ejs'); %>

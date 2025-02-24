@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<title>Beyond Boards & Bags </title>
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: Arial, Helvetica, sans-serif;
+		color: #000;
+	}
+
+	section {
+		padding: 48px 0;
+	}
+
+	.container {
+		max-width: 1200px;
+		width: 100%;
+		margin: auto;
+	}
+
+
+	header {
+		background-color: #10163a;
+		padding: 50px 0;
+		text-align: center;
+		color: #fff;
+	}
+
+
+
+	.logo img {
+		width: 100%;
+		max-width: 130px;
+		display: block;
+		margin: 0 auto 20px;
+	}
+
+	.logo {
+		text-align: center;
+	}
+
+	h2 {
+		font-size: 20px;
+		color: #333;
+	}
+
+	h3 {
+		font-size: 16px;
+		color: #8e8e8e;
+		margin: 3px 0px;
+		font-weight: normal;
+		text-decoration: underline;
+	}
+
+	h4 {
+		font-size: 16px;
+		color: #000;
+		font-weight: normal;
+		padding-left: 10px;
+		margin: 13px 0px;
+	}
+
+	p {
+		color: #333;
+		font-size: 16px;
+	}
+	a{
+		color: #e86723;
+	}
+</style>
+</head>
+
+<body class="privacy">
+	<header>
+		<p class="logo"> <img src="https://app.beyondboardsandbags.com/Logo/LOGO.png"> </p>
+		<h1><%-privacy_policy?.title%></h1>
+	</header>
+	<section>
+		<div class="container">
+			<%-privacy_policy?.content%>
+		</div>
+	</section>
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Subcategory Listing</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="content-body">
+                            <!-- Basic table -->
+                            <section id="basic-datatable">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <!-- <a class="leftbtn" style="margin-left: 85%;"href="/admin/subcategory"> <button class="btn-sm btn-success">Add subcategory</button></a> -->
+
+                                            <table class="table" id="myTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <!-- <th> Image</th> -->
+                                                        <th>Category Name</th>
+                                                        <th> Name</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <% find_subcategory.forEach(function(subcategory, i){ %>
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <%= i+1 %>
+                                                        </th>
+                                                        <!-- <td>
+                                                            <img id="myImg" src="<%= subcategory.image %>" alt=""
+                                                                height="60px" width="60px">
+                                                        </td> -->
+                                                        <td>
+                                                            <%= subcategory?.category?.name %>
+                                                        </td>
+                                                        <td>
+                                                            <%= subcategory?.name %>
+                                                        </td>
+
+
+                                                        <td>
+                                                            <input type="checkbox" value="<%= subcategory.id %>"
+                                                                class="toggle_data" data-toggle="toggle"
+                                                                data-on="Active" data-off="Inactive"
+                                                                data-onstyle="success" data-offstyle="danger"
+                                                                <%=subcategory.status==1? "checked" :''%>>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/subcategoryview/<%-subcategory.id%>" style="margin:0px;"
+                                                                class="btn btn-sm    btn-success">View</a>
+                                                            <a href="/admin/subcategoryedit/<%= subcategory.id %>" style="margin:0px;"
+                                                                class="btn btn-sm btn-warning">Edit</a>
+
+                                                            <!-- <button onclick="deletesubcategory('<%-subcategory.id%>')" style="margin:0px;" class="btn btn-sm btn-danger deletdat>">Delete</button> -->
+                                                        </td>
+                                                    </tr>
+                                                    <% }); %>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--/ Basic table -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+                    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+                        rel="stylesheet">
+                    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+                    <!-- DATA TABLE  -->
+                    <script>
+                        $(document).ready(function () {
+                            $('#myTable').DataTable();
+                        });
+
+                    </script>
+                    <!-- DATA USER STATUS  -->
+                    <script>
+                        $(function () {
+                            $('.toggle_data').change(function () {
+                                // $('#console-event').html('Toggle: ' + $(this).prop('checked'))
+                                let active_data = $(this).prop('checked')
+
+                                let get_value = active_data == true ? 1 : 0
+                                let category_id = $(this).prop('value')
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/admin/subcategory_status",
+                                    data: {
+                                        id: category_id,
+                                        value: get_value
+                                    },
+                                    success: function (response) {
+
+                                        if (response == true) {
+                                            location.reload()
+                                        }
+                                    },
+                                    error: function (response) {
+
+                                    }
+                                });
+
+                            })
+                        })
+                    </script>
+                    <!-- DATA USER DELETED  -->
+                    <script>
+                        function deletesubcategory(category_id) {
+                            // alert(category_id)
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success",
+                                    cancelButton: "btn btn-danger"
+                                },
+                                buttonsStyling: false
+                            });
+                            swalWithBootstrapButtons.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel!",
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/admin/deletedsubcategory",
+                                        data: {
+                                            id: category_id,
+                                            is_deleted: 1
+                                        },
+                                        success: function (response) {
+                                            ;
+                                            if (response == true) {
+                                                swalWithBootstrapButtons.fire({
+                                                    title: "Deleted!",
+                                                    text: "The Subcategory has been deleted",
+                                                    icon: "success"
+                                                }).then((suc) => {
+                                                    location.reload()
+                                                });
+
+                                            }
+                                        },
+                                        error: function (response) {
+
+                                        }
+                                    });
+
+                                } else if (
+                                    /* Read more about handling dismissals below */
+                                    result.dismiss === Swal.DismissReason.cancel
+                                ) {
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Cancelled",
+                                        text: "Your user is safe :)",
+                                        icon: "error"
+                                    });
+                                }
+                            });
+                        }
+                    </script>

@@ -1,0 +1,465 @@
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<%- include('../common/header.ejs'); %>
+
+    <style>
+        a.btn.btn-success {
+            margin-left: 892px;
+        }
+    </style>
+    <style>
+        select {
+            width: 20em;
+        }
+
+        .multiselect-dropdown {
+            display: inline-block;
+            padding: 2px 5px 0px 5px;
+            border-radius: 4px;
+            border: solid 1px #ced4da;
+            background-color: white;
+            position: relative;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right .75rem center;
+            background-size: 16px 12px;
+            padding: 0.4rem 1rem;
+        }
+
+        .multiselect-dropdown span.optext,
+        .multiselect-dropdown span.placeholder {
+            margin-right: 0.5em;
+            margin-bottom: 2px;
+            padding: 1px 0;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .multiselect-dropdown span.optext {
+            background-color: lightgray;
+            padding: 1px 0.75em;
+        }
+
+        .multiselect-dropdown span.optext .optdel {
+            float: right;
+            margin: 0 -6px 1px 5px;
+            font-size: 0.7em;
+            margin-top: 2px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .multiselect-dropdown span.optext .optdel:hover {
+            color: #c66;
+        }
+
+        .multiselect-dropdown span.placeholder {
+            color: #ced4da;
+        }
+
+        .multiselect-dropdown-list-wrapper {
+            box-shadow: #cbcbcb 0 3px 8px;
+            z-index: 100;
+            padding: 2px;
+            border-radius: 4px;
+            border: none;
+            display: none;
+            margin: -1px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+        }
+
+        .multiselect-dropdown-list-wrapper .multiselect-dropdown-search {
+            margin-bottom: 5px;
+        }
+
+        .multiselect-dropdown-list {
+            padding: 2px;
+            height: 15rem !important;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .multiselect-dropdown-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .multiselect-dropdown-list::-webkit-scrollbar-thumb {
+            background-color: #bec4ca;
+            border-radius: 3px;
+        }
+
+        .multiselect-dropdown-list div {
+            padding: 5px;
+        }
+
+        .multiselect-dropdown-list input {
+            height: 1.15em;
+            width: 1.15em;
+            margin-right: 0.35em;
+        }
+
+        .multiselect-dropdown-list div:hover {
+            background-color: #ced4da;
+        }
+
+        .multiselect-dropdown span.maxselected {
+            width: 100%;
+        }
+
+        .multiselect-dropdown-all-selector {
+            border-bottom: solid 1px #999;
+        }
+    </style>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Notifications</h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="content-body">
+                            <style>
+                                .active_btn {
+                                    background: gray !important;
+                                }
+                            </style>
+
+                            <!-- Basic table -->
+                            <section id="basic-datatable">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="d-flex w-100">
+                                                <a class="leftbtn" style="margin-left: 2%;margin-top: 17px;"
+                                                    href="/admin/notification?role=2"> <button
+                                                        class="btn-sm btn-primary border-0 <%- Role == 1?'active_btn':''%>">Coach</button></a>
+                                                <a class="leftbtn" style="margin-left: 2%;margin-top: 17px;"
+                                                    href="/admin/notification?role=1"> <button
+                                                        class="btn-sm btn-primary border-0 <%- Role == 2?'active_btn':''%>">Students</button></a>
+                                            </div>
+                                            <form id="full-editor" class="form-horizontal form-validate-jquery p-5"
+                                                method="post" action="">
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <label class="control-label">All <%- Role==2 ? 'Coach'
+                                                                        : 'Student' %> <span
+                                                                            class="text-danger">*</span></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-lg-12">
+                                                                <select name="field2" id="field2" class="form-control"
+                                                                    multiple multiselect-search="true"
+                                                                    multiselect-select-all="true"
+                                                                    multiselect-max-items="3"
+                                                                    onchange="console.log(this.selectedOptions)">
+                                                                    <% users.forEach(function(user) { %>
+                                                                        <option value="<%-user.id%>"> <%-
+                                                                                user.first_name%> <%- user.last_name%>
+                                                                        </option>
+                                                                        <% }); %>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+
+
+                                                        <fieldset class="content-group">
+                                                            <!-- Basic text input -->
+
+
+
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <label class="control-label">Message <span
+                                                                            class="text-danger">*</span></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-12">
+                                                                    <input type="text" id="msgtext" name="msgtext"
+                                                                        value="" class="form-control"
+                                                                        placeholder="Enter your title"
+                                                                        aria-required="true">
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group d-flex justify-content-end mt-2">
+                                                                <button type="button" onclick="sendmsg('field2')"
+                                                                    class="btn btn-primary text-right">Send</button>
+                                                            </div>
+
+                                                            <!-- Minimum characters -->
+
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--/ Basic table -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+
+
+
+                    <script>
+                        function MultiselectDropdown(options) {
+                            var config = {
+                                search: true,
+                                height: '30rem',
+                                placeholder: 'select',
+                                txtSelected: 'selected',
+                                txtAll: 'All',
+                                txtRemove: 'Remove',
+                                txtSearch: 'search',
+                                ...options
+                            };
+                            function newEl(tag, attrs) {
+                                var e = document.createElement(tag);
+                                if (attrs !== undefined) Object.keys(attrs).forEach(k => {
+                                    if (k === 'class') { Array.isArray(attrs[k]) ? attrs[k].forEach(o => o !== '' ? e.classList.add(o) : 0) : (attrs[k] !== '' ? e.classList.add(attrs[k]) : 0) }
+                                    else if (k === 'style') {
+                                        Object.keys(attrs[k]).forEach(ks => {
+                                            e.style[ks] = attrs[k][ks];
+                                        });
+                                    }
+                                    else if (k === 'text') { attrs[k] === '' ? e.innerHTML = '&nbsp;' : e.innerText = attrs[k] }
+                                    else e[k] = attrs[k];
+                                });
+                                return e;
+                            }
+
+
+                            document.querySelectorAll("select[multiple]").forEach((el, k) => {
+
+                                var div = newEl('div', { class: 'multiselect-dropdown', style: { width: config.style?.width ?? el.clientWidth + 'px', padding: config.style?.padding ?? '' } });
+                                el.style.display = 'none';
+                                el.parentNode.insertBefore(div, el.nextSibling);
+                                var listWrap = newEl('div', { class: 'multiselect-dropdown-list-wrapper' });
+                                var list = newEl('div', { class: 'multiselect-dropdown-list', style: { height: config.height } });
+                                var search = newEl('input', { class: ['multiselect-dropdown-search'].concat([config.searchInput?.class ?? 'form-control']), style: { width: '100%', display: el.attributes['multiselect-search']?.value === 'true' ? 'block' : 'none' }, placeholder: config.txtSearch });
+                                listWrap.appendChild(search);
+                                div.appendChild(listWrap);
+                                listWrap.appendChild(list);
+
+                                el.loadOptions = () => {
+                                    list.innerHTML = '';
+
+                                    if (el.attributes['multiselect-select-all']?.value == 'true') {
+                                        var op = newEl('div', { class: 'multiselect-dropdown-all-selector' })
+                                        var ic = newEl('input', { type: 'checkbox' });
+                                        op.appendChild(ic);
+                                        op.appendChild(newEl('label', { text: config.txtAll }));
+
+                                        op.addEventListener('click', () => {
+                                            op.classList.toggle('checked');
+                                            op.querySelector("input").checked = !op.querySelector("input").checked;
+
+                                            var ch = op.querySelector("input").checked;
+                                            list.querySelectorAll(":scope > div:not(.multiselect-dropdown-all-selector)")
+                                                .forEach(i => { if (i.style.display !== 'none') { i.querySelector("input").checked = ch; i.optEl.selected = ch } });
+
+                                            el.dispatchEvent(new Event('change'));
+                                        });
+                                        ic.addEventListener('click', (ev) => {
+                                            ic.checked = !ic.checked;
+                                        });
+                                        el.addEventListener('change', (ev) => {
+                                            let itms = Array.from(list.querySelectorAll(":scope > div:not(.multiselect-dropdown-all-selector)")).filter(e => e.style.display !== 'none')
+                                            let existsNotSelected = itms.find(i => !i.querySelector("input").checked);
+                                            if (ic.checked && existsNotSelected) ic.checked = false;
+                                            else if (ic.checked == false && existsNotSelected === undefined) ic.checked = true;
+                                        });
+
+                                        list.appendChild(op);
+                                    }
+
+                                    Array.from(el.options).map(o => {
+                                        var op = newEl('div', { class: o.selected ? 'checked' : '', optEl: o })
+                                        var ic = newEl('input', { type: 'checkbox', checked: o.selected });
+                                        op.appendChild(ic);
+                                        op.appendChild(newEl('label', { text: o.text }));
+
+                                        op.addEventListener('click', () => {
+                                            op.classList.toggle('checked');
+                                            op.querySelector("input").checked = !op.querySelector("input").checked;
+                                            op.optEl.selected = !!!op.optEl.selected;
+                                            el.dispatchEvent(new Event('change'));
+                                        });
+                                        ic.addEventListener('click', (ev) => {
+                                            ic.checked = !ic.checked;
+                                        });
+                                        o.listitemEl = op;
+                                        list.appendChild(op);
+                                    });
+                                    div.listEl = listWrap;
+
+                                    div.refresh = () => {
+                                        div.querySelectorAll('span.optext, span.placeholder').forEach(t => div.removeChild(t));
+                                        var sels = Array.from(el.selectedOptions);
+                                        if (sels.length > (el.attributes['multiselect-max-items']?.value ?? 5)) {
+                                            div.appendChild(newEl('span', { class: ['optext', 'maxselected'], text: sels.length + ' ' + config.txtSelected }));
+                                        }
+                                        else {
+                                            sels.map(x => {
+                                                var c = newEl('span', { class: 'optext', text: x.text, srcOption: x });
+                                                if ((el.attributes['multiselect-hide-x']?.value !== 'true'))
+                                                    c.appendChild(newEl('span', { class: 'optdel', text: '🗙', title: config.txtRemove, onclick: (ev) => { c.srcOption.listitemEl.dispatchEvent(new Event('click')); div.refresh(); ev.stopPropagation(); } }));
+
+                                                div.appendChild(c);
+                                            });
+                                        }
+                                        if (0 == el.selectedOptions.length) div.appendChild(newEl('span', { class: 'placeholder', text: el.attributes['placeholder']?.value ?? config.placeholder }));
+                                    };
+                                    div.refresh();
+                                }
+                                el.loadOptions();
+
+                                search.addEventListener('input', () => {
+                                    list.querySelectorAll(":scope div:not(.multiselect-dropdown-all-selector)").forEach(d => {
+                                        var txt = d.querySelector("label").innerText.toUpperCase();
+                                        d.style.display = txt.includes(search.value.toUpperCase()) ? 'block' : 'none';
+                                    });
+                                });
+
+                                div.addEventListener('click', () => {
+                                    div.listEl.style.display = 'block';
+                                    search.focus();
+                                    search.select();
+                                });
+
+                                document.addEventListener('click', function (event) {
+                                    if (!div.contains(event.target)) {
+                                        listWrap.style.display = 'none';
+                                        div.refresh();
+                                    }
+                                });
+                            });
+                        }
+
+                        window.addEventListener('load', () => {
+                            MultiselectDropdown(window.MultiselectDropdownOptions);
+                        });
+
+
+                    </script>
+
+                    <!-- sendmsg ON CLICK  -->
+                    <script>
+
+
+                        function sendmsg(id) {
+                            var msgtext = document.getElementById('msgtext').value;
+                            if (msgtext == '') {
+                                toastr.error("please add a Massage ")
+                            } else {
+                                var dropdown = document.getElementById(id);
+                                if (dropdown) {
+                                    checkedValues = [];
+                                    Array.from(dropdown.options).forEach(option => {
+                                        if (option.selected) {
+                                            checkedValues.push(option.value);
+                                        }
+                                    });
+                                    console.log(checkedValues, ">>>>>>>>sdsds>>>"); // Array containing checked option values
+                                    const obj = JSON.stringify(checkedValues)
+                                    if (checkedValues.length > 0) {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/admin/send_notification",
+                                            // contentType: "application/json",
+                                            // dataType: "json",
+                                            data: {
+                                                ids: obj,
+                                                msg: msgtext
+                                            },
+                                            success: function (response) {
+                                                console.log(response);
+                                                if (response.code == 200) {
+                                                    Swal.fire({
+                                                        title: "Notification Sent Sucessfully",
+                                                        text: "You clicked the button!",
+                                                        icon: "success",
+                                                        confirmButtonText: "Ok"
+                                                    }).then((result) => {
+                                                        if (result.isConfirmed) {
+                                                            location.reload()
+                                                        }
+                                                    }).catch((err) => {
+                                                    });
+                                                }
+                                            },
+                                            error: function (response) {
+                                                console.log(response);
+                                            }
+                                        });
+
+                                    } else {
+                                        toastr.error("Please selected atleast one user")
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                    </script>
+
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+                        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+                        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+                        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+                        crossorigin="anonymous" referrerpolicy="no-referrer" />

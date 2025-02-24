@@ -1,0 +1,576 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Coach Add</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit start -->
+                                                <!-- users edit account form start -->
+                                                <form id="validate" action="" method="post" class="form-validate"
+                                                    novalidate="novalidate" enctype="multipart/form-data">
+
+                                                    <div class="col-md-6>">
+                                                        <div class="d-flex ">
+                                                            <input type="file" name="image" id="fil_up" accept="image/*">
+
+                                                        </div>
+                                                        <div class="mt-50 p-1">
+                                                            <h4>Image</h4>
+                                                            <img id="imgPreview" width="220" height="180"
+                                                                src="/Logo/imagesplaceholder.png" alt="" srcset="">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-6>">
+                                                        <div class="d-flex p-1">
+                                                            <input type="file" name="cover_video" id="fil_ups">
+                                                        </div>
+                                                        <div class="mt-50">
+                                                            <h4> Cover video</h4>
+                                                            <video id="videoPreview" width="220" height="180" controls>
+                                                                <source src="" type="video/mp4">
+
+                                                            </video>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="first_name">First
+                                                                Name</label>
+                                                            <input required="text" class="form-control"
+                                                                placeholder="First Name" value="" name="first_name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Last Name</label>
+                                                            <input required="text" class="form-control"
+                                                                placeholder="Name" value="" name="last_name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="email">Email</label>
+                                                            <input required="email" class="form-control"
+                                                                placeholder="Email" value="" name="email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="password">Password</label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Password" value="" name="password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location">Address</label>
+                                                            <input required type="address" class="form-control"
+                                                                placeholder="Address" value="" name="address">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location"> $ Horly rate
+                                                            </label>
+                                                            <input required type="location" class="form-control"
+                                                                placeholder=" $ Horly rate" value="" name="hourly_rate">
+                                                        </div>
+                                                    </div> -->
+                                                   
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location">About</label>
+                                                            <textarea name="about_me" placeholder="About"
+                                                                class="form-control" id=""></textarea>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location">Coaching Experience</label>
+                                                            <textarea name="coaching_experience" placeholder="coaching_experience"
+                                                                class="form-control" id=""></textarea>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location">Playing Experience</label>
+                                                            <textarea name="playing_experience" placeholder="playing_experience"
+                                                                class="form-control" id=""></textarea>
+                                                        </div>
+                                                    </div> -->
+                                                
+                                                 
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location"> Do you have own
+                                                                courts ?</label>
+                                                            <select name="own_courts" class="form-control" id="">
+                                                                <option value="">Please select ...</option>
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location"> Are you Willing to
+                                                                travel for lessons ?</label>
+                                                            <select name="willing_to_travel" class="form-control" id="">
+                                                                <option value="">Please select ...</option>
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location"> Do you have
+                                                                provide balls ?</label>
+                                                            <select name="provide_balls" class="form-control" id="">
+                                                                <option value="">Please select ...</option>
+                                                                <option value="yes">Yes</option>
+                                                                <option value="no">No</option>
+                                                            </select>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location"> What age groups do
+                                                                you coach ?</label>
+                                                            <select name="age_group" class="form-control" id="">
+                                                                <option value="">Please select ...</option>
+                                                                <option value="all">All</option>
+                                                                <option value="kids">kids</option>
+                                                                <option value="teens">Teens</option>
+                                                                <option value="adults">Adults</option>
+                                                            </select>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
+                                                        <label class="form-label" for="location">Cerificates</label>
+
+                                                        <input type="file" class="form-control" name="document"
+                                                            id="fil_uped" accept="image/*" multiple>
+                                                        <div class="mt-50">
+                                                           
+                                                            <div id="imgPreviewContainer"
+                                                                style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="location">Language</label>
+                                                            <input required type="text" class="form-control"
+                                                                placeholder="Language" value="" name="language">
+                                                        </div>
+                                                    </div>
+                                                    <div id="append_html"> -->
+
+                                                    <!-- </div>
+                                                    <div class="form-group" id="remove">
+                                                        <div class="row">
+                                                            <div class="text-end col-md-6">
+                                                                <a class="btn btn-success" id="add_button">Add More</a>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+
+                                                    <!-- SCDULES  -->
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="trav_box">
+                                                            <div class="trav_box_head">
+                                                                <h5>Set travel Time (optional)</h5>
+                                                                <input type="text" class="text-center" value="15 min">
+                                                            </div>
+                                                            <h5 class="mb-0 mt-2">Set Schedule</h5> -->
+
+
+                                                            <!-- <% coach_schedule_day.forEach(function(schedule_day, i){ %>
+                                                                <div class="trav_box_body">
+                                                                    <div class="card p-2 border mb-0">
+                                                                        <div class="form-check form-switch">
+                                                                            <input class="form-check-input"
+                                                                                type="checkbox" role="switch"
+                                                                                id="flexSwitchCheckChecked" checked>
+                                                                            <label class="form-check-label"
+                                                                                for="flexSwitchCheckChecked"><%-schedule_day?.name%></label>
+                                                                        </div>
+                                                                     
+                                                                        <div class="trav_int_group">
+                                                                            <input type="time" value="">
+                                                                            <span>-</span>
+                                                                            <input type="time" value="">
+                                                                            <button>+</button>
+                                                                            <button>x</button>
+                                                                        </div>
+                                                                  
+                                                                    </div>
+                                                                </div>
+                                                                <% }); %> -->
+
+
+
+                                                            <!-- <div class="trav_box_body">
+                                                                <div class="card p-2 border mb-0">
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            role="switch" id="flexSwitchCheckChecked"
+                                                                            checked>
+                                                                        <label class="form-check-label"
+                                                                            for="flexSwitchCheckChecked">Mon</label>
+                                                                    </div>
+
+                                                                    <div class="trav_int_group">
+                                                                        <input type="time" value="">
+                                                                        <span>-</span>
+                                                                        <input type="time" value="">
+                                                                        <button>+</button>
+                                                                        <button>x</button>
+                                                                    </div>
+                                                                    <div onclick="time_removed()"  id="timeInputContainer"></div>
+                                                                    <div onclick="time_append()" id="addTimeInputDiv">Add</div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+
+
+
+
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save
+                                                            Changes</button>
+                                                        <a href="/admin/caochlisting"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+
+
+
+ <!-- multiple Append on TIME SLOAT   -->
+                    <script>
+                        let timeInputHtml = `<div class="trav_int_group">
+                                            <input type="time" value="">
+                                            <span class="remove-time">-</span>
+                                            <input type="time" value="">
+                                            <div class="add-time">+</div>
+                                            <div class="remove-group">x</div>
+                                        </div>`;
+
+                        var maxRows = 10;
+                        var currentRows = 1;
+
+                        function time_append() {
+                            if (currentRows < maxRows) {
+                                $('#timeInputContainer').append(timeInputHtml);
+                                currentRows++;
+                            }
+                        }
+
+
+
+function time_removed(params) {
+    
+}
+
+                        // Remove the entire group
+                        $("#timeInputContainer").on('click', '.remove-group', function () {
+                            $(this).closest('.trav_int_group').remove();
+                            currentRows--; // Decrease the counter
+                        });
+
+                        // Functionality for the "-" button to remove one of the time inputs
+                        $("#timeInputContainer").on('click', '.remove-time', function () {
+                            const inputs = $(this).siblings('input[type="time"]');
+                            if (inputs.length > 1) {
+                                $(inputs[1]).remove(); // Remove the second input
+                            }
+                        });
+                    </script>
+ <!-- multiple Append on Time Sloat  -->
+
+
+
+
+
+                    <!-- multiple Append on LANGUAGES  -->
+                    <script>
+
+
+                        let html = `
+                        
+                            <div class="col-md-6">
+                                <div class="mb-1">
+                                    <label class="form-label" for="location">Language </label>
+                                    <div class="position-relative">
+                                        <input required type="text" class="form-control"
+                                            placeholder="Language" value="" name="language">
+                                        <button class="input_delete_btn" id="remove"><i class="ph-bold ph-x"></i></button>
+                                    </div> 
+                                </div>
+                            </div>`;
+
+
+
+
+                        var maxRows = 10;
+                        var x = 1;
+                        $("#add_button").on('click', function () {
+                            if (x <= maxRows) {
+                                $('#append_html').append(html)
+                                x++;
+                            }
+                        })
+
+
+                        $("#append_html").on('click', '#remove', function (e) {
+                            $(this).parent('div').remove();
+                        });
+
+
+
+
+                    </script>
+                    <!-- multiple Append on LANGUAGES  END -->
+
+
+
+
+
+
+                    <!-- category image -->
+                    <script>
+                        imgInp.onchange = evt => {
+                            const [file] = imgInp.files
+                            if (file) {
+                                blah.src = URL.createObjectURL(file)
+                            }
+                        }
+                    </script>
+                    <!-- validate form  -->
+                    <script>
+                        $(document).ready(function () {
+                            // alert("vikas")
+                            $("#validate").validate({
+                                rules: {
+
+                                    first_name: {
+                                        required: true,
+                                        minlength: 2 // For length of lastname
+                                    },
+                                    last_name: {
+                                        required: true,
+                                        minlength: 2 // For length of lastname
+                                    },
+                                    email: {
+                                        required: true,
+                                    },
+                                    image: {
+                                        required: true,
+                                    },
+                                    cover_video: {
+                                        required: true,
+
+                                    },
+
+                                    password: {
+                                        required: true,
+                                    },
+                                    address: {
+                                        required: true,
+                                    },
+                                    hourly_rate: {
+                                        required: true,
+                                    },
+                                    about_me: {
+                                        required: true,
+                                    },
+                                    playing_experience: {
+                                        required: true,
+                                    },
+                                    coaching_experience: {
+                                        required: true,
+                                    },
+
+                                    own_courts: {
+                                        required: true,
+                                    },
+                                    willing_to_travel: {
+                                        required: true,
+                                    },
+
+                                    provide_balls: {
+                                        required: true,
+                                    },
+                                    age_group: {
+                                        required: true,
+                                    },
+
+
+                                }, messages: {
+
+                                    first_name: {
+                                        required: " Please enter a first name",
+                                        minlength: " Your first name must consist of at least 2 characters"
+                                    },
+
+                                    last_name: {
+                                        required: " Please enter a last  name",
+                                        minlength: "Your last name must consist of at least 2 characters"
+                                    },
+                                    email: {
+                                        required: "Please enter a email ",
+
+                                    },
+                                    image: {
+                                        required: "Please select image file ",
+                                    },
+                                    cover_video: {
+                                        required: "Please select video file ",
+
+                                    },
+                                    password: {
+                                        required: "Please enter a password",
+                                        minlength: "Your password must be at least 8 characters long",
+                                    },
+                                    address: {
+                                        required: " Please enter a address",
+                                    },
+                                    hourly_rate: {
+                                        required: "Please enter a Hourly rate",
+
+                                    },
+                                    about_me: {
+                                        required: "Please enter a About me",
+                                    },
+                                    playing_experience: {
+                                        required: " Please enter a playing experience",
+                                    },
+                                    coaching_experience: {
+                                        required: " Please enter a coaching experience",
+                                    },
+                                    own_courts: {
+                                        required: " Please enter a own_courts",
+                                    },
+                                    willing_to_travel: {
+                                        required: " Please enter a willing to travel",
+                                    },
+                                    provide_balls: {
+                                        required: " Please enter a provide balls",
+
+                                    },
+                                    age_group: {
+                                        required: " Please enter a age group",
+                                    }
+                                }
+                            });
+                        });  
+                    </script>
+                    <script>
+                        $("#validate input").on("keypress", function (e) {
+                            if (e.which === 32 && !this.value.length)
+                                e.preventDefault();
+                        });
+                        $("#validate textarea").on("keypress", function (e) {
+                            if (e.which === 32 && !this.value.length)
+                                e.preventDefault();
+                        });
+                    </script>
+                    <!-- SHow Images -->
+                    <script>
+                        $(document).ready(function () {
+                            $("#fil_up").change(function (e) {
+                                //console.log(URL.createObjectURL(e.target.files[0]));
+                                $("#imgPreview").attr("src", URL.createObjectURL(e.target.files[0]));
+                            });
+                        });
+                    </script>
+                    <!-- SHow Video -->
+                    <script>
+                        $(document).ready(function () {
+                            $("#fil_ups").change(function (e) {
+                                //console.log(URL.createObjectURL(e.target.files[0]));
+                                $("#videoPreview").attr("src", URL.createObjectURL(e.target.files[0]));
+                            });
+                        });
+                    </script>
+
+                    <!-- multiple show  -->
+                    <script>
+                        document.getElementById('fil_uped').addEventListener('change', function (event) {
+                            const previewContainer = document.getElementById('imgPreviewContainer');
+                            previewContainer.innerHTML = ''; // Clear previous previews
+
+                            const files = event.target.files;
+
+                            for (let i = 0; i < files.length; i++) {
+                                const file = files[i];
+                                const reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    const imgElement = document.createElement('img');
+                                    imgElement.src = e.target.result;
+                                    imgElement.width = 220;
+                                    imgElement.height = 180;
+                                    imgElement.style.objectFit = 'cover';
+                                    previewContainer.appendChild(imgElement);
+                                };
+
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    </script>

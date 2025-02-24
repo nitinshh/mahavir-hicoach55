@@ -1,0 +1,197 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Sport Edit</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit start -->
+
+                                                <!-- users edit ends -->
+                                                <!-- users edit account form start -->
+                                                <form id="validate"
+                                                    action="/admin/sportviewupdate/<%-sportview.id%>"
+                                                    method="post" class="form-validate" novalidate="novalidate"
+                                                    enctype="multipart/form-data">
+
+                                                    <!-- <div class="d-flex mb-2">
+                                                        <input  type="file" name="image" required>
+                                                        <img  id="myImg" src="<%-sportview.image%>" alt="users avatar"
+                                                            class="user-avatar users-avatar-shadow rounded me-2 my-25 cursor-pointer"
+                                                            height="100" width="100">
+                                                        <div class="mt-50">
+                                                            <h4></h4>
+                                                        </div>
+                                                    </div> -->
+
+
+
+                                                    <div class="col-md-6>">
+                                                        <input type="file" name="logo" id="fil_up" accept="image/*">
+                                                        <div class="mt-50">
+                                                            <h4>Logo</h4>
+                                                            <img id="imgPreview" width="220" height="180"
+                                                                src="<%-sportview?.logo%>" alt="" srcset="">
+                                                        </div>
+                                                    </div>
+                                                  
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Name</label>
+                                                            <input required="text" class="form-control"
+                                                                placeholder="Name" value="<%-sportview.name%>"
+                                                                name="name" id="name">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Description</label>
+                                                            <textarea class="form-control" name="description" id=""
+                                                                cols="30"
+                                                                rows="10"><%-sportview.description%></textarea>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save
+                                                            Changes</button>
+                                                        <a href="/admin/sportlisting"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+
+
+                    <script>
+                        // Get the modal
+                        var modal = document.getElementById("myModal");
+
+                        // Get the image and insert it inside the modal - use its "alt" text as a caption
+                        var img = document.getElementById("myImg");
+                        var modalImg = document.getElementById("img01");
+                        var captionText = document.getElementById("caption");
+                        img.onclick = function () {
+                            modal.style.display = "block";
+                            modalImg.src = this.src;
+                            captionText.innerHTML = this.alt;
+                        }
+
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function () {
+                            modal.style.display = "none";
+                        }
+                    </script>
+                    <script>
+                        $("#validate input").on("keypress", function (e) {
+                            if (e.which === 32 && !this.value.length)
+                                e.preventDefault();
+                        });
+                        $("#validate textarea").on("keypress", function (e) {
+                            if (e.which === 32 && !this.value.length)
+                                e.preventDefault();
+                        });
+                    </script>
+
+                    <!-- validate form  -->
+                    <script>
+                        $(document).ready(function () {
+                            // alert("vikas")
+                            $("#validate").validate({
+                                rules: {
+
+                                    name: {
+                                        required: true,
+                                        minlength: 2 // For length of lastname
+                                    },
+                                    description: {
+                                        required: true,
+                                    },
+                                    image: {
+                                        required: true,
+                                        url: true,
+                                        pattern: /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
+                                    },
+                                    
+                                    agree: "required"
+                                }, messages: {
+
+                                    name: {
+                                        required: " Please enter a name",
+                                        minlength:
+                                            " Your username must consist of at least 2 characters"
+                                    },
+                                    description: {
+                                        required: " Please enter a description",
+                                    },
+                                    image: {
+                                        required: "Please enter a video link",
+                                        url: "Please enter a valid URL",
+                                        pattern: "Please enter a valid YouTube video link"
+                                    },
+                                    agree: "Please accept our policy"
+                                }
+                            });
+                        });  
+                    </script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#fil_up").change(function (e) {
+            //console.log(URL.createObjectURL(e.target.files[0]));
+            $("#imgPreview").attr("src", URL.createObjectURL(e.target.files[0]));
+        });
+    });
+</script>

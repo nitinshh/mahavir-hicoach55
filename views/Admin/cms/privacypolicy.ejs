@@ -1,0 +1,116 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left  col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Community Guidlines</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit start -->
+
+                                                <!-- users edit ends -->
+                                                <!-- users edit account form start -->
+                                                <form id="myForm" action="" method="post" class="form-validate"
+                                                    novalidate="novalidate" enctype="multipart/form-data">
+
+
+                                                    <div class="col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="title">Title</label>
+                                                            <input disabled readonly required="text" class="form-control"
+                                                                placeholder="Title" value="<%= privacy_policy?.title%>" name="title" id="title">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="description">Description</label>
+                                                            <textarea required class="form-control textcolor" name="description"
+                                                                id="summernote" cols="80" rows="80"><%= privacy_policy?.description%></textarea>
+                                                                <!-- <div id="error-message" style="color: red; display: none;">This field is required.</div> -->
+
+                                                                <!-- <input   type="content" class="form-control" placeholder="Content" value="" name="content" id="content"> -->
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save
+                                                            Changes</button>
+                                                        <a href="/admin/dashboard"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+                    <script>
+                        $(document).ready(function() {
+                            $('#summernote').summernote({
+                                placeholder: 'Privacy policy',
+                                tabsize: 2,
+                                height: 300,
+                                toolbar: [
+                                    ['style', ['style']],
+                                    ['font', ['bold', 'underline', 'clear']],
+                                    ['color', ['color']],
+                                    ['para', ['ul', 'ol', 'paragraph']],
+                                    ['table', ['table']],
+                                    ['insert', ['link']],
+                                    ['view', ['fullscreen', 'codeview', 'help']]
+                                ]
+                            });
+                            // $('#myForm').on('submit', function(event) {
+                            //     var summernoteContent = $('#summernote').summernote('code');
+                            //     if ($(summernoteContent).text().trim() === '') {
+                            //         $('#error-message').show();
+                            //         event.preventDefault();
+                            //     } else {
+                            //         $('#error-message').hide();
+                            //     }
+                            // });
+                        });
+                    </script>

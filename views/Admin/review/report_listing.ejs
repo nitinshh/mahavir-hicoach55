@@ -1,0 +1,188 @@
+<%- include('../common/header.ejs'); %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .checked {
+    color: orange;
+  }
+</style>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+  <!-- BEGIN: Header-->
+  <%- include('../common/navbar.ejs'); %>
+  <!-- END: Header-->
+
+
+  <!-- BEGIN: Main Menu Sidebar -->
+  <%- include('../common/sidebar.ejs'); %>
+  <!-- END: Main Menu Sidebar-->
+
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+          <div class="row breadcrumbs-top">
+            <div class="col-12">
+              <h2 class="content-header-title float-start mb-0">Report Listing</h2>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="content-body">
+        <!-- Basic table -->
+        <section id="basic-datatable">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+
+                <!-- <a class="leftbtn" style="margin-left: 88%;"href="/admin/category"> <button class="btn-sm btn-success">Add category</button></a> -->
+                <div class="table-responsive">
+                  <table class="table" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>Sr. No.</th>
+                        <th>Date</th>
+                        <th>Reported by</th>
+                        <th>Reported to</th>
+                        <th>Reason</th>
+
+                      </tr>
+                    </thead>
+
+                    <% find_reports.forEach(function(report, i){ %>
+                    <tr>
+                      <td scope="row">
+                        <%= i+1 %>
+                      </td>
+                      <td> <%- moment(report.createdAt).format('DD-MM-YYYY'); %></td>
+                      <td>
+                        Name: <%-report?.reported_by_name?.first_name%> <%-report?.reported_by_name?.last_name%><br>
+                        Email: <%-report?.reported_by_name?.email%> <br>
+                        Role: <%= report?.reported_by_name?.role == 1 ? 'Student' : report?.reported_by_name?.role == 2 ? 'Coach' : 'Unknown' %>
+                      </td>
+                       
+                      <td>
+                        Neme: <%-report?.reported_to_name?.first_name%> <%-report?.reported_to_name?.last_name%><br>
+                        Email: <%-report?.reported_to_name?.email%> <br>
+                     
+                          Role: <%= report?.reported_to_name?.role == 1 ? 'Student' : report?.reported_to_name?.role == 2 ? 'Coach' : 'Unknown' %>
+                                            
+                      </td>
+               
+                        <td>
+                          <textarea disabled><%-report?.reason%></textarea>
+                        
+                      </td>
+                     
+
+                    </tr>
+                    <% }); %>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!--/ Basic table -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- END: Content-->
+  <%- include('../common/footer.ejs'); %>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+  <!-- DATA TABLE  -->
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "pageLength": 100,
+        dom: 'Bfrtip',
+        buttons: [{
+          extend: 'collection',
+          text: 'Export',
+          buttons: [{
+              extend: 'pdf',
+              text: 'Export to PDF',
+              className: 'btn-export-left',
+            },
+            {
+              extend: 'excel',
+              text: 'Export to Excel'
+            }
+          ]
+        }]
+      });
+    });
+  </script>
+  <!-- DATA USER DELETED  -->
+  <script>
+    function deleteUser(category_id) {
+      // alert(category_id)
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+
+          $.ajax({
+            type: "POST",
+            url: "/admin/deletedgame",
+            data: {
+              id: category_id,
+              is_deleted: 1
+            },
+            success: function(response) {
+              ;
+              if (response == true) {
+                swalWithBootstrapButtons.fire({
+                  title: "Deleted!",
+                  text: "Your game  has been deleted.",
+                  icon: "success"
+                }).then((suc) => {
+                  location.reload()
+                });
+
+              }
+            },
+            error: function(response) {
+
+            }
+          });
+
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Your game is safe :)",
+            icon: "error"
+          });
+        }
+      });
+    }
+  </script>

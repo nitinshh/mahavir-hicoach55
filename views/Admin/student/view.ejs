@@ -1,0 +1,344 @@
+<%- include('../common/header.ejs'); %>
+
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+  <!-- BEGIN: Header-->
+  <%- include('../common/navbar.ejs'); %>
+  <!-- END: Header-->
+
+
+  <!-- BEGIN: Main Menu Sidebar -->
+  <%- include('../common/sidebar.ejs'); %>
+  <!-- END: Main Menu Sidebar-->
+
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+          <div class="row breadcrumbs-top">
+            <div class="col-12">
+              <h2 class="content-header-title float-start mb-0">Student View</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-body">
+        <section class="app-user-edit">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="tab-content">
+                <!-- Account Tab starts -->
+                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+                  <!-- users edit start -->
+
+                  <!-- users edit ends -->
+                  <!-- users edit account form start -->
+                  <form action="" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+
+                    <div class="d-flex mb-2">
+                      <!-- <input  type="file" name="image" required> -->
+                      <img id="myImg" src="<%- userview?.image ==''?'/Logo/imagesplaceholder.png':userview.image %>" alt="users avatar" class="user-avatar users-avatar-shadow rounded me-2 my-25 cursor-pointer" height="100" width="100">
+                      <div class="mt-50">
+                        <h4></h4>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="name">First Name</label>
+                        <input readonly required="text" class="form-control" placeholder="Name" value="<%-userview.first_name%>" name="name" id="name">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="name">Last Name</label>
+                        <input readonly required="text" class="form-control" placeholder="Name" value="<%-userview.last_name%>" name="name" id="name">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="email">E-mail</label>
+                        <input disabled readonly type="email" class="form-control" placeholder="Email" value="<%-userview.email%>" name="email" id="email">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="company">Address</label>
+                        <input disabled required type="text" name="address" class="form-control" value="<%-userview.address%>" placeholder="Address name" id="company">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="company">Total Booking
+                        </label>
+                        <input disabled required type="text" name="address" class="form-control" value="<%-find_bookings.length%>" placeholder="Address name" id="company">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="company">Total amount spend
+                        </label>
+                        <input disabled required type="text" name="address" class="form-control" value="$ <%= userview?.dataValues.total_spend%>" placeholder="Total amount spend" id="company">
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="company">Sport
+                        </label>
+                        <input disabled required type="text" name="address" class="form-control" value="Tennis" placeholder="Total amount spend" id="company">
+                      </div>
+                    </div>
+
+                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                      <!-- <button type="submit" class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save Changes</button> -->
+                      <a href="/admin/studentlisting" class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                    </div>
+                  </form>
+                  <!-- users edit account form ends -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- >>>>>>>>>>>>>>>>>>>>>>>>> Bookings <<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        <h1>Bookings Details</h1>
+        <section id="basic-datatable">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+
+                <!-- <a class="leftbtn" style="margin-left: 88%;"href="/admin/category"> <button class="btn-sm btn-success">Add category</button></a> -->
+                <div class="table-responsive">
+                  <table class="table" class="myTable">
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>User Name</th>
+                        <th>Coach Name</th>
+                        <th>Booking Type</th>
+                        <th>Start Time </th>
+                        <th>End Time </th>
+                        <th>Price</th>
+                        <th>Booking Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <% find_bookings.forEach(function(booking, i){ %>
+                    <tr>
+                      <th scope="row">
+                        <%= i+1 %>
+                      </th>
+                      <td>
+                        <%-booking?.student_details?.first_name%> <%-booking?.student_details?.last_name%>
+                      </td>
+                      <td>
+                        <%-booking?.coach_details?.first_name%> <%-booking?.coach_details?.last_name%>
+                      </td>
+                      <td>
+                        <%-booking?.booking_type%>
+                      </td>
+                      <td>
+                        <%-booking?.start_time%>
+                      </td>
+                      <td>
+                        <%-booking?.end_time%>
+                      </td>
+                      <td><%-booking?.price%></td>
+
+                      <td>
+                        <%- 
+                          booking?.booking_status === 0 
+                          ? '<li style="margin:0px;" class="btn btn-sm btn-danger">Pending</li>' 
+                          : booking?.booking_status === 1 
+                          ? '<li style="margin:0px;" class="btn btn-sm btn-warning">Accepted</li>'
+                          : booking?.booking_status === 2 
+                          ? '<li style="margin:0px;" class="btn btn-sm btn-success">Completed</li>' 
+                          : booking?.booking_status === 3 && booking?.cancel_request === 1 
+                          ? '<li style="margin:0px;" class="btn btn-sm btn-dark">Cancelled by Student</li>'
+                          : booking?.booking_status === 3 && booking?.cancel_request === 2 
+                          ? '<li style="margin:0px;" class="btn btn-sm btn-dark">Cancelled by Coach</li>'
+                          : '' 
+                        %>
+                      </td>
+                      <td>
+                        <a href="/admin/bookingview/<%-booking.id%>" style="margin:0px;" class="btn btn-sm btn-success">View</a>
+                        <!-- <button onclick="deleteUser('<%-booking.id%>')"
+                                                                    style="margin:0px;"
+                                                                    class="btn btn-sm btn-danger deletdat>">Delete</button> -->
+                      </td>
+                    </tr>
+                    <% }); %>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- >>>>>>>>>>>>>>>>>>>>>>>>> Transactions <<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        <h1>Transactions Details</h1>
+        <section id="basic-datatable">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+
+                <a class="leftbtn" style="margin-left: 77%;" href="#"> <button class="btn-sm btn-dark">Total amount spend: $<%= userview?.dataValues.total_spend%></button></a>
+                <div class="table-responsive">
+                  <table class="table" class="myTable">
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>User Name</th>
+                        <th>Coach Name</th>
+                        <th>TranstionId</th>
+                        <th>Price</th>
+                        <th>Commission(%)</th>
+                        <th>Commission Amount</th>
+                        <th>Coach earning</th>
+                        <th>Payment Method</th>
+                        <th>Payment Status</th>
+                        <!-- <th>Action</th> -->
+                      </tr>
+                    </thead>
+
+                    <% find_transaction.forEach(function(transaction, i){ %>
+                    <tr>
+                      <th scope="row">
+                        <%= i+1 %>
+                      </th>
+                      <td>
+                        <%-transaction?.student_details?.first_name%>
+                        <%-transaction?.student_details?.last_name%>
+                      </td>
+                      <td>
+                        <%-transaction?.coach_details?.first_name%>
+                        <%-transaction?.coach_details?.last_name%>
+                      </td>
+                      <td>
+                        <%-transaction?.transaction_id%>
+                      </td>
+
+                      <td>$<%-transaction?.amount%></td>
+                      <td><%-transaction?.commission%></td>
+                      <td>$<%-transaction?.commission_amount%></td>
+                      <td>$<%-transaction?.coach_amount%></td>
+
+                      <td>Card</td>
+
+                      <td>
+
+
+                        <% if (transaction?.payment_status==1) { %>
+                        <li style="margin:0px;" class="btn btn-sm btn-success">Pending</li>
+                        <% } else if (transaction?.payment_status==2 ) { %>
+                        <li style="margin:0px;" class="btn btn-sm btn-danger">Completed</li>
+                        <% } else { %>
+                        <li style="margin:0px;" class="btn btn-sm btn-danger">Pending
+                        </li>
+                        <% } %>
+
+                      </td>
+
+                      <!-- <td> -->
+                      <!-- <a href="/admin/transactionview/<%-transaction.id%>"
+                                                                style="margin:0px;"
+                                                                class="btn btn-sm btn-success">View</a> -->
+                      <!-- <button onclick="deleteUser('<%-transaction.id%>')"
+                                                                style="margin:0px;"
+                                                                class="btn btn-sm btn-danger deletdat>">Delete</button> -->
+                      <!-- </td> -->
+                    </tr>
+                    <% }); %>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- >>>>>>>>>>>>>>>>>>>>>>>>> Package_details <<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+        <h1>Packages Details</h1>
+        <section id="basic-datatable">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+
+                <div class="table-responsive">
+                  <table class="table" class="myTable">
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>User Name</th>
+                        <th>Coach Name</th>
+                        <th>Title</th>
+                        <th>Total Hours</th>
+                        <th>Left Hours</th>
+                        <th>Price</th>
+                        <th>Payment Method</th>
+                      </tr>
+                    </thead>
+
+
+                    <tr>
+                      <th scope="row">
+                        1
+                      </th>
+                      <td>
+                        <%-userview.first_name%> <%-userview.last_name%>
+                      </td>
+                      <td>
+                        Coachsaini
+                      </td>
+                      <td>
+                        Private Class package
+                      </td>
+                      <td>10</td>
+                      <td>10</td>
+                      <td>100</td>
+                      <td>Card</td>
+</tr>
+<tr>
+    <th scope="row">
+      2
+    </th>
+    <td>
+      <%-userview.first_name%> <%-userview.last_name%>
+    </td>
+    <td>
+      Coachsaini
+    </td>
+    <td>
+      Private Class package
+    </td>
+    <td>10</td>
+    <td>10</td>
+    <td>100</td>
+    <td>Card</td>
+</tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+  <!-- END: Content-->
+  <%- include('../common/footer.ejs'); %>
+  <!-- DATA TABLE  -->
+  <script>
+    $(document).ready(function() {
+      $('.myTable').DataTable();
+    });
+  </script>

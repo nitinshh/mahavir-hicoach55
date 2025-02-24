@@ -1,0 +1,71 @@
+const Sequelize = require('sequelize');
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('packages', {
+    id: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
+    },
+    title: {
+      type: DataTypes.STRING(255),
+      allowNull: false
+    },
+    number_of_hours: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    discount: {
+      type: DataTypes.DECIMAL(9,2),
+      allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+      field: 'created_at'
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+      field: "updated_at"
+    },
+    deletedAt: {
+      type: DataTypes.DATE,
+
+      allowNull: true,
+      field: "deleted_at"
+    }
+  }, {
+    sequelize,
+    tableName: 'packages',
+    timestamps: true,
+    paranoid: true,
+    indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "id" },
+        ]
+      },
+      {
+        name: "user_id_package",
+        using: "BTREE",
+        fields: [
+          { name: "user_id" },
+        ]
+      },
+    ]
+  });
+};

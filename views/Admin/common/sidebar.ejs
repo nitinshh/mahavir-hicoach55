@@ -1,0 +1,61 @@
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+  <div class="navbar-header">
+    <ul class="nav navbar-nav flex-row side_head">
+      <li class="nav-item mx-auto"><a class="navbar-brand m-0" href="/admin/dashboard"><span class="brand-logo">
+            <img src="/app-assets/images/logo.png" class="rounded-3" alt="">
+        </a></li>
+      <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
+    </ul>
+  </div>
+  <div class="main-menu-content">
+    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+      <li class=" nav-item <%- title == 'dashboard'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/dashboard"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboard</span><span class="badge badge-light-warning rounded-pill ms-auto me-1"></span></a>
+        <!-- <ul class="menu-content">
+                    <li class="active"><a class="d-flex align-items-center" href="dashboard-analytics.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Analytics">Analytics</span></a>
+                    </li>
+                    <li><a class="d-flex align-items-center" href="dashboard-ecommerce.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="eCommerce">eCommerce</span></a>
+                    </li>
+                </ul> -->
+      </li>
+      <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Modules &amp; List</span><i data-feather="more-horizontal"></i>
+      </li>
+
+      <li class=" nav-item <%- title == 'student'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/studentlisting"><i data-feather="user-plus"></i><span class="menu-title text-truncate" data-i18n="user">Student</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'Coach Listing'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/caochlisting"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="user">Coach(Verified)</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'Coach Listing1'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/verify_request"><i data-feather="users"></i><span class="menu-title text-truncate" data-i18n="users">Coach(Not Verified)</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'sport'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/sportlisting"><i data-feather="save"></i><span class="menu-title text-truncate" data-i18n="user">Sports</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'bookings'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/bookinglisting"><i data-feather="map"></i><span class="menu-title text-truncate" data-i18n="user">Bookings</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'coachChat'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/coachChat"><i data-feather="message-circle"></i><span class="menu-title text-truncate" data-i18n="user">Coach Chat</span></a>
+      </li>
+      </li>
+      <li class=" nav-item <%- title == 'studentChat'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/studentChat"><i data-feather="message-circle"></i><span class="menu-title text-truncate" data-i18n="user">Student Chat</span></a>
+      </li>
+      <!-- <li class=" nav-item <%- title == 'subcategory'? 'active':''%>"><a class="d-flex align-items-center"
+                    href="/admin/subcategorylisting"><i data-feather="briefcase"></i><span
+                        class="menu-title text-truncate" data-i18n="user">Subcategory</span></a>
+            </li> -->
+      <li class=" nav-item <%- title == 'transaction'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/transactionlisting"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="user">Transactions</span></a>
+      </li>
+  
+      <li class=" nav-item <%- title == 'review'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/reviewlisting"><i data-feather="star"></i><span class="menu-title text-truncate" data-i18n="user">Reviews</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'notification'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/notification?role=1"><i data-feather="bell"></i><span class="menu-title text-truncate" data-i18n="user">Notifications</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'Report Users'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/report_listing"><i data-feather="book-open"></i><span class="menu-title text-truncate" data-i18n="user">Report Users</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'privacy'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/privacy_policy"><i data-feather="book"></i><span class="menu-title text-truncate" data-i18n="user">Community Guidlines</span></a>
+      </li>
+      <!-- <li class=" nav-item <%- title == 'about'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/aboutus"><i data-feather="eye"></i><span class="menu-title text-truncate" data-i18n="user">About Us</span></a> -->
+      </li>
+      <li class=" nav-item <%- title == 'terms'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/terms"><i data-feather="type"></i><span class="menu-title text-truncate" data-i18n="user">Terms & Conditions</span></a>
+      </li>
+      <li class=" nav-item <%- title == 'contactus'? 'active':''%>"><a class="d-flex align-items-center" href="/admin/contactuslisting"><i data-feather="box"></i><span class="menu-title text-truncate" data-i18n="user">Contact Us</span></a>
+      </li>
+  </ul>
+  </div>
+</div>

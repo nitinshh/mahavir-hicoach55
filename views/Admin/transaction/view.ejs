@@ -1,0 +1,240 @@
+<%- include('../common/header.ejs'); %>
+
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+  <!-- BEGIN: Header-->
+  <%- include('../common/navbar.ejs'); %>
+  <!-- END: Header-->
+
+
+  <!-- BEGIN: Main Menu Sidebar -->
+  <%- include('../common/sidebar.ejs'); %>
+  <!-- END: Main Menu Sidebar-->
+
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+          <div class="row breadcrumbs-top">
+            <div class="col-12">
+              <h2 class="content-header-title float-start mb-0">Transaction View</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-body">
+        <section class="app-user-edit">
+
+          <!--  <h1>Transaction detail</h1> -->
+          <div class="card">
+            <div class="card-body">
+              <h1>Transaction Details</h1>
+
+              <div class="tab-content">
+                <!-- Account Tab starts -->
+                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+                  <!-- users edit account form start -->
+                  <form action="" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Student
+                            Name</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_transaction?.student_details?.first_name%> <%-find_transaction?.student_details?.last_name%>" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Coach name</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value=" <%-find_transaction?.coach_details?.first_name%> <%-find_transaction?.coach_details?.last_name%>" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">
+                            Transaction Id</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_transaction?.transaction_id%>" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Transaction Amount</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_transaction?.amount%>" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">
+                            Payment Method</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="Card" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Payment Status</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="Pending" name="Pending" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">
+                            Session Id</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_transaction?.booking_id%>" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Date and Time</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%- moment(find_transaction.createdAt).format('DD/MM/YYYY mm:ss'); %>" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">
+                            Currency</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="Doller" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Discount Applied</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="No" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+
+                  </form>
+                  <!-- users edit account form ends -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!--  <h1>Session  detail</h1> -->
+          <div class="card">
+            <div class="card-body">
+              <h1>Session detail</h1>
+
+              <div class="tab-content">
+                <!-- Account Tab starts -->
+                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+                  <!-- users edit account form start -->
+                  <form action="" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Session Duration
+                          </label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="1Hours" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Session Type:</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="Part of a package" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">
+                            Location</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="coachs location " name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Session Status</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="Pending" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <!-- users edit account form ends -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+           <!--  <h1>Financial Insights </h1> -->
+           <div class="card">
+            <div class="card-body">
+              <h1>Financial Insights</h1>
+
+              <div class="tab-content">
+                <!-- Account Tab starts -->
+                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+                  <!-- users edit account form start -->
+                  <form action="" method="post" class="form-validate" novalidate="novalidate" enctype="multipart/form-data">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Coach Earnings($)
+                          </label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_transaction.coach_amount%>" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Platform Fees(%)</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_transaction.commission%>" name="name" id="name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">
+                            Coach Payout Status</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="Paid" name="" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Tax Deductions</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="<%-find_transaction.commission_amount%>" name="name" id="name">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb-1">
+                          <label class="form-label" for="name">Refunds/Adjustments</label>
+                          <input readonly required="text" class="form-control" placeholder="Name" value="adjustments" name="name" id="name">
+                        </div>
+                      </div>
+
+
+                      
+                    </div>
+                  </form>
+                  <!-- users edit account form ends -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </section>
+
+      </div>
+    </div>
+  </div>
+  <!-- END: Content-->
+  <%- include('../common/footer.ejs'); %>

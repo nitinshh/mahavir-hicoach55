@@ -1,0 +1,315 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Booking View</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+
+                                <!--  <h1>Booking detail</h1> -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1>Booking Details</h1>
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit account form start -->
+                                                <form action="" method="post" class="form-validate"
+                                                    novalidate="novalidate" enctype="multipart/form-data">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Student
+                                                                    Name</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.student_details?.first_name%> <%-find_booking?.student_details?.last_name%>"
+                                                                    name="" id="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Coach name</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.coach_details?.first_name%> <%-find_booking?.coach_details?.last_name%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Booking
+                                                                    Type</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.booking_type%>" name=""
+                                                                    id="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Price</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name" value="<%-find_booking?.price%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Start Time</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.start_time%>" name="name"
+                                                                    id="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">End Time</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.end_time%>" name="name"
+                                                                    id="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="booking_status">Booking Status</label>
+                                                                <input readonly required="text" 
+                                                                    class="form-control <%- 
+                                                                        find_booking?.booking_status == 0 
+                                                                        ? 'border-danger text-danger bg-light-danger' 
+                                                                        : find_booking?.booking_status == 1 
+                                                                        ? 'border-warning text-warning bg-light-warning'
+                                                                        : find_booking?.booking_status == 2 
+                                                                        ? 'border-success text-success bg-light-success' 
+                                                                        : find_booking?.booking_status == 3 && find_booking?.cancel_request == 1 
+                                                                        ? 'border-dark text-dark bg-light-dark'
+                                                                        : find_booking?.booking_status == 3 && find_booking?.cancel_request == 2 
+                                                                        ? 'border-dark text-dark bg-light-dark'
+                                                                        : '' 
+                                                                    %>" 
+                                                                    placeholder="Booking Status"
+                                                                    value="<%- 
+                                                                        find_booking?.booking_status == 0 
+                                                                        ? 'Pending' 
+                                                                        : find_booking?.booking_status == 1 
+                                                                        ? 'Accepted'
+                                                                        : find_booking?.booking_status == 2 
+                                                                        ? 'Completed' 
+                                                                        : find_booking?.booking_status == 3 && find_booking?.cancel_request == 1 
+                                                                        ? 'Cancelled by Student'
+                                                                        : find_booking?.booking_status == 3 && find_booking?.cancel_request == 2 
+                                                                        ? 'Cancelled by Coach'
+                                                                        : '' 
+                                                                    %>" 
+                                                                    id="booking_status">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Payment
+                                                                    Status</label>
+                                                                <input readonly required="text" class="form-control border-danger text-danger bg-light-danger"
+                                                                    placeholder="Name" value="Pending" name="name"
+                                                                    id="name">
+                                                              
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Sport
+                                                                    </label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="Tennis"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                  
+                                                    </div>
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <h1>Student detail</h1> -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1>Student Details</h1>
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit account form start -->
+                                                <form action="" method="post" class="form-validate"
+                                                    novalidate="novalidate" enctype="multipart/form-data">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">First Name</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.student_details?.first_name%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Last Name</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.student_details?.last_name%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Email</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.student_details.email%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Address</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.student_details.address%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <a href="/admin/bookinglisting"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div> -->
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  <h1>Coach detail</h1> -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h1>Coach Details</h1>
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit account form start -->
+                                                <form action="" method="post" class="form-validate"
+                                                    novalidate="novalidate" enctype="multipart/form-data">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">First Name</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.coach_details?.first_name%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Last Name</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.coach_details?.last_name%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Email</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.coach_details.email%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="mb-1">
+                                                                <label class="form-label" for="name">Address</label>
+                                                                <input readonly required="text" class="form-control"
+                                                                    placeholder="Name"
+                                                                    value="<%-find_booking?.coach_details.address%>"
+                                                                    name="name" id="name">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <a style="margin-left: 47%;" href="/admin/bookinglisting"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>

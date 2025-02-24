@@ -1,0 +1,103 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Sport View</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit start -->
+
+                                                <!-- users edit ends -->
+                                                <!-- users edit account form start -->
+                                                <form action="/admin/viewupdate/<%-sportview.id%>" method="post"
+                                                    class="form-validate" novalidate="novalidate"
+                                                    enctype="multipart/form-data">
+                                                    
+                                                    <label class="form-label" for="name">Logo</label>
+                                                    <div class="d-flex mb-2">
+                                                        <img width="220" height="180" src="<%-sportview.logo%>"
+                                                            alt="" srcset="">
+
+
+                                                        <div class="mt-50">
+                                                            <h4></h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Name</label>
+                                                            <input readonly required="text" class="form-control"
+                                                                placeholder="Name" value="<%-sportview.name%>"
+                                                                name="name" id="name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Status</label>
+                                                            <input readonly="text" class="form-control"
+                                                                placeholder="Name"
+                                                                value="<%-sportview.status == 1? 'Active':'Inactive' %>"
+                                                                name="name" id="name">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Description</label>
+                                                            <textarea readonly class="form-control" name="description"
+                                                                id="" cols="30"
+                                                                rows="10"><%-sportview.description%></textarea>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <!-- <button type="submit" class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save Changes</button> -->
+                                                        <a href="/admin/sportlisting"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>

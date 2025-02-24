@@ -1,0 +1,152 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Category Add</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit start -->
+                                                <!-- users edit account form start -->
+                                                <form id="validate" action="" method="post"
+                                                    class="form-validate" novalidate="novalidate"
+                                                    enctype="multipart/form-data">
+                                            
+                                                    <div class="col-md-6>">
+                                                        <input type="file" name="logo" id="fil_up" accept="image/*">
+                                                        <div class="mt-50">
+                                                            <h4>Logo</h4>
+                                                            <img id="imgPreview" width="220" height="180"
+                                                                src="" alt="" srcset="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Name</label>
+                                                            <input  required="text" class="form-control"
+                                                                placeholder="Name" value="" name="name" >
+                                                        </div>
+                                                    </div>
+                                                  
+
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save
+                                                            Changes</button>
+                                                        <a href="/admin/categorylisting"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+
+
+                    <!-- category image -->
+                    <script>
+                        imgInp.onchange = evt => {
+                            const [file] = imgInp.files
+                            if (file) {
+                                blah.src = URL.createObjectURL(file)
+                            }
+                        }
+                    </script>
+                    <!-- validate form  -->
+                    <script>
+                        $(document).ready(function () {
+                            // alert("vikas")
+                            $("#validate").validate({
+                                rules: {
+
+                                    name: {
+                                        required: true,
+                                        minlength: 2 // For length of lastname
+                                    },
+                                    image: {
+                                        required: true,
+                                    },
+                                    description: {
+                                        required: true,
+                                    },
+                                }, messages: {
+
+                                    name: {
+                                        required: " Please enter a name",
+                                        minlength:
+                                            " Your username must consist of at least 2 characters"
+                                    },
+                                    image: {
+                                        required: " Please select video file ",
+                                    },
+                                    description: {
+                                        required: " Please enter a description",
+                                    },
+                                }
+                            });
+                        });  
+                    </script>
+                    <script>
+                        $("#validate input").on("keypress", function (e) {
+                            if (e.which === 32 && !this.value.length)
+                                e.preventDefault();
+                        });
+                        $("#validate textarea").on("keypress", function (e) {
+                            if (e.which === 32 && !this.value.length)
+                                e.preventDefault();
+                        });
+                    </script>
+<!-- SHow Images -->
+<script>
+    $(document).ready(function () {
+        $("#fil_up").change(function (e) {
+            //console.log(URL.createObjectURL(e.target.files[0]));
+            $("#imgPreview").attr("src", URL.createObjectURL(e.target.files[0]));
+        });
+    });
+</script>

@@ -1,0 +1,122 @@
+<%- include('common/header.ejs'); %>
+<!-- END: Head-->
+<!-- BEGIN: Body-->
+<body class="vertical-layout vertical-menu-modern navbar-floating footer-static" data-open="click"
+  data-menu="vertical-menu-modern" data-col="">
+  <!-- BEGIN: Header-->
+  <%- include('common/navbar.ejs'); %>
+  <!-- END: Header-->
+  <!-- BEGIN: Main Menu Sidebar -->
+  <%- include('common/sidebar.ejs'); %>
+  <!-- END: Main Menu Sidebar-->
+  <!-- BEGIN: Content-->
+  <div class="app-content content">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+          <div class="row breadcrumbs-top">
+            <div class="col-12">
+              <h2 class="content-header-title float-start mb-0">Set App is Under Maintenance</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-body">
+        <section class="app-user-edit">
+          <div class="card">
+            <div class="card-body">
+              <div class="tab-content">
+                <!-- Account Tab starts -->
+                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+
+                  <!-- users edit account form start -->
+                  <form action="/admin/add_app_downtime" method="post" id="validate" class="form-validate" novalidate="novalidate"
+                    enctype="multipart/form-data">
+
+                    <div class="col-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="date">Date</label>
+                        <input type="date" class="form-control" placeholder="Select Date" value=""
+                          name="date" id="date" required>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="start_time">Start Time</label>
+                        <input type="time" name="start_time" class="form-control" value=""
+                          placeholder="Select Start Time" id="start_time" required>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="mb-1">
+                        <label class="form-label" for="end_time">End Time</label>
+                        <input type="time" name="end_time" class="form-control" value=""
+                          placeholder="Select End Time" id="end_time" required>
+                      </div>
+                    </div>
+                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                      <button type="submit"
+                        class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save</button>
+                      <a href="/admin/dashboard"
+                        class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                    </div>
+                  </form>
+                  <!-- users edit account form ends -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- END: Content-->
+  <%- include('common/footer.ejs'); %>
+
+  <script>
+    $(document).ready(function () {
+      // Disable past dates
+      var today = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+      document.getElementById('date').setAttribute('min', today);
+
+      // Validate the form
+      $("#validate").validate({
+        rules: {
+          end_time: {
+            required: true,
+            greaterThanStartTime: true
+          },
+          date: {
+            required: true,
+          },
+          start_time: {
+            required: true,
+          },
+        },
+        messages: {
+          end_time: {
+            required: "Please enter the end time",
+          },
+          date: {
+            required: "Please select a date",
+          },
+          start_time: {
+            required: "Please enter the start time",
+          },
+        }
+      });
+
+      // Custom validation rule to ensure end time is greater than start time
+      $.validator.addMethod("greaterThanStartTime", function(value, element) {
+        var startTime = $('#start_time').val();
+        if (startTime && value) {
+          return value > startTime;
+        }
+        return true; // Valid if no start time or end time is empty
+      }, "End Time must be greater than Start Time");
+
+    });
+  </script>
+</body>

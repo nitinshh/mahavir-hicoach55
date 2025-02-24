@@ -1,0 +1,291 @@
+<%- include('../common/header.ejs'); %>
+
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+
+<body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
+
+  <!-- BEGIN: Header-->
+  <%- include('../common/navbar.ejs'); %>
+  <!-- END: Header-->
+
+
+  <!-- BEGIN: Main Menu Sidebar -->
+  <%- include('../common/sidebar.ejs'); %>
+  <!-- END: Main Menu Sidebar-->
+
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+      <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+          <div class="row breadcrumbs-top">
+            <div class="col-12">
+              <h2 class="content-header-title float-start mb-0">Coach Listing- Not Verified</h2>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="content-body">
+        <!-- Basic table -->
+        <section id="basic-datatable">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+
+                <div class="d-flex justify-content-between p-1 pb-0">
+
+                  <div class="d-flex align-items-center">
+                    <a class="btn-sm btn-dark me-2" href="/admin/caochlisting">Total Earning: <%- total_earning_all_coaches %></a>
+                    <a class="btn-sm btn-danger me-2" href="/admin/caochlisting">Coach Retention Rate: <%- retention_data %>%</a>
+                </div>
+                  <a class="leftbtn" href="/admin/coachadd"> <button class="btn-sm btn-success border-0">Add Coach</button></a>
+                </div>
+
+                <div class="table-responsive">
+
+                  <!-- <span class="pt-2 px-2 d-inline-block">Download CSV file:</span> -->
+                  <table class="table" id="myTable">
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>Coach Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Verified Status</th>
+                        <th>Total booking</th>
+                        <th>Total earning</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <% find_user.forEach(function(user, i){ %>
+                      <tr>
+                        <th scope="row">
+                          <%= i+1 %>
+                        </th>
+                        <th scope="row">
+                          <%= user.id%>
+                        </th>
+                        <td>
+                          <%= user.first_name %>
+                        </td>
+                        <td>
+                          <%= user.last_name %>
+                        </td>
+                        <td>
+                          <%= user.email %>
+                        </td>
+
+                        <td>
+                          <%= user.address %>
+                        </td>
+                        <td>
+                          <input type="checkbox" value="<%= user.id %>" class="toggle_data" data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" <%=user.status==1? "checked" :''%>>
+                        </td>
+                        <td>
+                          <% if (user.is_verified == 0) { %>
+                            
+                            <button class="btn btn-primary" id="verifyButton" 
+                                    data-id="<%= user.id %>" data-status="<%= user.is_verified %>">
+                                    Not Requested
+                            </button>
+                          <% } else { %>
+                       
+                            <button class="btn btn-primary" id="verifyButton" 
+                                    data-id="<%= user.id %>" data-status="<%= user.is_verified %>">
+                                    Requested for Verification
+                            </button>
+                          <% } %>
+                        </td>
+                        
+                        <td><%-user.total_booking%></td>
+                        <td>$ <%-user?.total_earning%></td>
+
+                        <td>
+                          <a href="/admin/caochview/<%-user.id%>" class="btn btn-sm btn-success"><i class="fa-solid fa-eye"></i></a>
+                          <a href="/admin/coachedit/<%= user.id %>" style="margin:0px;" class="btn btn-sm btn-warning">Edit</a>
+                          <a onclick="deleteUser('<%-user.id%>')" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+
+                        </td>
+                      </tr>
+                      <% }); %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+        <!--/ Basic table -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- END: Content-->
+  <%- include('../common/footer.ejs'); %>
+
+
+  <!-- DATA TABLE  -->
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "pageLength": 100,
+        dom: 'Bfrtip',
+        buttons: [{
+          extend: 'collection',
+          text: 'Export',
+          buttons: [{
+              extend: 'pdf',
+              text: 'Export to PDF',
+              className: 'btn-export-left',
+            },
+            {
+              extend: 'excel',
+              text: 'Export to Excel'
+            }
+          ]
+        }]
+      });
+    });
+  </script>
+  <!-- DATA USER STATUS  -->
+  <script>
+    $(function() {
+      $('.toggle_data').change(function() {
+        // $('#console-event').html('Toggle: ' + $(this).prop('checked'))
+        let active_data = $(this).prop('checked')
+
+        let get_value = active_data == true ? 1 : 0
+        let user_id = $(this).prop('value')
+
+        $.ajax({
+          type: "POST",
+          url: "/admin/caoch_status",
+          data: {
+            id: user_id,
+            value: get_value
+          },
+          success: function(response) {
+
+            if (response == true) {
+              location.reload()
+            }
+          },
+          error: function(response) {
+
+          }
+        });
+
+      })
+    })
+  </script>
+  <!-- DATA USER DELETED  -->
+  <script>
+    function deleteUser(user_id) {
+      // alert(user_id)
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          $.ajax({
+            type: "POST",
+            url: "/admin/deletedcoach",
+            data: {
+              id: user_id,
+              is_deleted: 1
+            },
+            success: function(response) {
+              ;
+              if (response == true) {
+                swalWithBootstrapButtons.fire({
+                  title: "Deleted!",
+                  text: "Your user has been deleted.",
+                  icon: "success"
+                }).then((suc) => {
+                  location.reload()
+                });
+
+              }
+            },
+            error: function(response) {
+
+            }
+          });
+
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancelled",
+            text: "Your user is safe :)",
+            icon: "error"
+          });
+        }
+      });
+    }
+  </script>
+  <script>
+    $('#verifyButton').click(function() {
+  let user_id = $(this).data('id');
+  
+  // Determine the current verification status from data attribute
+  let currentStatus = $(this).data('status'); // Assuming you have a data-status attribute in your button
+  
+  // If status is 2 (Verified), no further action should be taken
+  if (currentStatus == 2) {
+    return; // No action when status is already 2
+  }
+
+  // Proceed with verification if the status is 0 or 1
+  $.ajax({
+    type: "POST",
+    url: "/admin/verified_status", 
+    data: {
+      id: user_id,
+      value: 2  // Mark as Verified
+    },
+    success: function(response) {
+      if (response.success) { 
+        // Hide Not Requested and Requested buttons, show Verified button
+        $('#verifyButton').hide(); 
+        $('#requestedButton').hide(); 
+        $('#verifiedButton').show();
+    
+        location.reload(); // Reload to refresh status
+      }
+    },
+    error: function(response) {
+      console.log('Error: ', response);
+    }
+  });
+});
+
+  </script>

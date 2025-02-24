@@ -1,0 +1,154 @@
+<%- include('common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Profile</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit start -->
+
+                                                <!-- users edit ends -->
+                                                <!-- users edit account form start -->
+                                                <form id="validate" action="" method="post" class="form-validate"
+                                                    novalidate="novalidate" enctype="multipart/form-data">
+
+                                                    <div class="d-flex mb-2 align-items-center">
+                                                        <input type="file" name="image" id="fil_up"
+                                                            class="visually-hidden" >
+                                                        <label for="fil_up">
+                                                            <img src="<%-profile.image%>" id="imgPreview"
+                                                                alt="users avatar"
+                                                                class="user-avatar users-avatar-shadow rounded me-2 my-25 cursor-pointer"
+                                                                height="90" width="90">
+                                                        </label>
+                                                        <div class="mt-50">
+                                                            <h4><%-profile.name%></h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Name</label>
+                                                            <input required="text" class="form-control"
+                                                                placeholder="first_name" value="<%-profile.first_name%>"
+                                                                name="first_name" id="name">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="email">E-mail</label>
+                                                            <input disabled readonly type="email" class="form-control"
+                                                                placeholder="Email" value="<%-profile.email%>"
+                                                                name="email" id="email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="company">Address</label>
+                                                            <input required type="text" name="address"
+                                                                class="form-control" value="<%-profile.address %>"
+                                                                placeholder="Address name" id="company">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="company">Commission</label>
+                                                            <input required type="number" name="commission"
+                                                                class="form-control" value="<%-profile.commission %>"
+                                                                placeholder="commission" id="company">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save
+                                                            Changes</button>
+                                                        <a href="/admin/dashboard"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Content-->
+                <%- include('common/footer.ejs'); %>
+
+                    <script>
+                        $(document).ready(function () {
+                            $("#fil_up").change(function (e) {
+                                //console.log(URL.createObjectURL(e.target.files[0]));
+                                $("#imgPreview").attr("src", URL.createObjectURL(e.target.files[0]));
+                            });
+                        });
+                    </script>
+                      <!-- validate form  -->
+                      <script>
+                        $(document).ready(function () {
+                            // alert("vikas")
+                            $("#validate").validate({
+                                rules: {
+
+                                    first_name: {
+                                        required: true,
+                                        minlength: 2 // For length of lastname
+                                    },
+                              
+                                    address: {
+                                        required: true,
+                                    },
+                                }, messages: {
+
+                                    first_name: {
+                                        required: " Please enter a name",
+                                        minlength:
+                                            " Your first name must consist of at least 2 characters"
+                                    },
+                                  
+                                    address: {
+                                        required: " Please enter a address",
+                                    },
+                                }
+                            });
+                        });  
+                    </script>
+                    

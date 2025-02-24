@@ -1,0 +1,257 @@
+<%- include('../common/header.ejs'); %>
+
+    <!-- END: Head-->
+
+    <!-- BEGIN: Body-->
+
+    <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click"
+        data-menu="vertical-menu-modern" data-col="">
+
+        <!-- BEGIN: Header-->
+        <%- include('../common/navbar.ejs'); %>
+            <!-- END: Header-->
+
+
+            <!-- BEGIN: Main Menu Sidebar -->
+            <%- include('../common/sidebar.ejs'); %>
+                <!-- END: Main Menu Sidebar-->
+
+                <!-- BEGIN: Content-->
+                <div class="app-content content ">
+                    <div class="content-overlay"></div>
+                    <div class="header-navbar-shadow"></div>
+                    <div class="content-wrapper container-xxl p-0">
+                        <div class="content-header row">
+                            <div class="content-header-left col-md-9 col-12 mb-2">
+                                <div class="row breadcrumbs-top">
+                                    <div class="col-12">
+                                        <h2 class="content-header-title float-start mb-0">Question Edit</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="content-body">
+                            <section class="app-user-edit">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="tab-content">
+                                            <!-- Account Tab starts -->
+                                            <div class="tab-pane active" id="account" aria-labelledby="account-tab"
+                                                role="tabpanel">
+                                                <!-- users edit start -->
+
+                                                <!-- users edit ends -->
+                                                <!-- users edit account form start -->
+                                                <form action="/admin/questionsviewupdate/<%-questionsview.id%>"
+                                                    method="post" class="form-validate" novalidate="novalidate"
+                                                    enctype="multipart/form-data">
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="mb-1">
+                                                            <label class="form-label" for="name">Questions</label>
+                                                            <input required="text" class="form-control"
+                                                                placeholder="questions"
+                                                                value="<%-questionsview.question%>" name="question"
+                                                                id="questions">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Save
+                                                            Changes</button>
+                                                        <a href="/admin/questionslisting"
+                                                            class="btn btn-danger mb-1 mb-sm-0 me-0 me-sm-1 waves-effect waves-float waves-light">Back</a>
+                                                    </div>
+
+                                                </form>
+                                                <!-- users edit account form ends -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                        </div>
+                    </div>
+
+                    <!-- other data  -->
+                    <% if(questionsview.type !==1){ %>
+                        <div class="content-wrapper container-xxl p-0">
+                            <div class="content-header row">
+                                <div class="content-header-left col-md-9 col-12 mb-2">
+                                    <div class="row breadcrumbs-top">
+                                        <div class="col-12">
+                                            <h2 class="content-header-title float-start mb-0">Answers</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-body">
+                                <section id="basic-datatable">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <a class="leftbtn" style="margin-left: 87%;"
+                                                    href="/admin/answers/?id=<%-questionsview.id%>">
+                                                    <button class="btn-sm btn-success">Add Answers</button></a>
+                                                <table class="table" id="myTable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S.No</th>
+                                                            <th>Answers</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <% find_answers.forEach(function(answers, i){ %>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <%= i+1 %>
+                                                            </th>
+
+                                                            <td>
+                                                                <%=answers.answer%>
+                                                            </td>
+                                                            <td>
+                                                                <input type="checkbox" value="<%= answers.id %>"
+                                                                    class="toggle_data" data-toggle="toggle"
+                                                                    data-on="Active" data-off="Inactive"
+                                                                    data-onstyle="success" data-offstyle="danger"
+                                                                    <%=answers.status==1? "checked" :''%>>
+                                                            </td>
+                                                            <td>
+                                                                <a href="/admin/answersview/<%-answers.id%>/?id=<%-questionsview.id%>"
+                                                                    style="margin:0px;"
+                                                                    class="btn btn-sm btn-success">View</a>
+                                                                <a href="/admin/answersedit/<%= answers.id %>/?id=<%-questionsview.id%>"
+                                                                    style="margin:0px;"
+                                                                    class="btn btn-sm btn-warning">Edit</a>
+
+                                                                <button onclick="deleteUser('<%-answers.id%>')"
+                                                                    style="margin:0px;"
+                                                                    class="btn btn-sm btn-danger deletdat>">Delete</button>
+                                                            </td>
+                                                        </tr>
+                                                        <% }); %>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <% } else{ %>
+
+                            <% } %>
+
+                </div>
+
+                <!-- END: Content-->
+                <%- include('../common/footer.ejs'); %>
+
+                    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+                        rel="stylesheet">
+                    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+                    <!-- DATA TABLE  -->
+                    <script>
+                        $(document).ready(function () {
+                            $('#myTable').DataTable();
+                        });
+
+                    </script>
+                    <!-- DATA USER STATUS  -->
+                    <script>
+                        $(function () {
+                            $('.toggle_data').change(function () {
+                                // $('#console-event').html('Toggle: ' + $(this).prop('checked'))
+                                let active_data = $(this).prop('checked')
+
+                                let get_value = active_data == true ? 1 : 0
+                                let category_id = $(this).prop('value')
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/admin/answers_status",
+                                    data: {
+                                        id: category_id,
+                                        value: get_value
+                                    },
+                                    success: function (response) {
+
+                                        if (response == true) {
+                                            // location.reload()
+                                        }
+                                    },
+                                    error: function (response) {
+
+                                    }
+                                });
+
+                            })
+                        })
+                    </script>
+                    <!-- DATA USER DELETED  -->
+                    <script>
+                        function deleteUser(category_id) {
+                            // alert(category_id)
+                            const swalWithBootstrapButtons = Swal.mixin({
+                                customClass: {
+                                    confirmButton: "btn btn-success",
+                                    cancelButton: "btn btn-danger"
+                                },
+                                buttonsStyling: false
+                            });
+                            swalWithBootstrapButtons.fire({
+                                title: "Are you sure?",
+                                text: "You won't be able to revert this!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Yes, delete it!",
+                                cancelButtonText: "No, cancel!",
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/admin/deleted_answers",
+                                        data: {
+                                            id: category_id,
+                                            is_deleted: 1
+                                        },
+                                        success: function (response) {
+                                            ;
+                                            if (response == true) {
+                                                swalWithBootstrapButtons.fire({
+                                                    title: "Deleted!",
+                                                    text: "Your answers has been deleted.",
+                                                    icon: "success"
+                                                }).then((suc) => {
+                                                    location.reload()
+                                                });
+
+                                            }
+                                        },
+                                        error: function (response) {
+
+                                        }
+                                    });
+
+                                } else if (
+                                    /* Read more about handling dismissals below */
+                                    result.dismiss === Swal.DismissReason.cancel
+                                ) {
+                                    swalWithBootstrapButtons.fire({
+                                        title: "Cancelled",
+                                        text: "Your answers is safe :)",
+                                        icon: "error"
+                                    });
+                                }
+                            });
+                        }
+                    </script>

@@ -1,0 +1,41 @@
+{
+  "name": "mongoejs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./hicoach.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-rekognition": "^3.478.0",
+    "apn": "^2.2.0",
+    "cookie-parser": "~1.4.4",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.13",
+    "debug": "~2.6.9",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "~4.16.1",
+    "express-fileupload": "^1.4.3",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.3",
+    "firebase-admin": "^13.0.2",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.4",
+    "node-cron": "^3.0.3",
+    "node-input-validator": "^4.5.1",
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.0.2",
+    "paypal-rest-sdk": "^1.8.1",
+    "sequelize": "^6.37.2",
+    "sequelize-auto": "^0.8.8",
+    "socket.io": "^4.8.1",
+    "stripe": "^14.25.0",
+    "toastr": "^2.1.4",
+    "uuid": "^9.0.1"
+  }
+}

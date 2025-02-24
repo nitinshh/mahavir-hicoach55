@@ -1,0 +1,1383 @@
+<script>
+  // student graph start ///////////////////////////////////
+  let new_studentChart; // Chart instance
+
+  function toggleStudentGraph(filterValue, type) {
+    const graphContainer = $(".new_student");
+
+    if (graphContainer.length && !graphContainer.hasClass("d-none")) {
+      // If the graph is visible, hide it
+      graphContainer.addClass("d-none");
+      if (new_studentChart) {
+        new_studentChart.destroy(); // Destroy the chart if it's visible
+      }
+    } else {
+      // If the graph is not visible, show it
+      if (!graphContainer.length) {
+        // If the graph container is not yet created, create it
+        createGraphContainer();
+      }
+      new_student(filterValue, type); // Fetch and show the graph
+    }
+  }
+
+  function createGraphContainer() {
+    let html = `<div class="card new_student d-none">
+                    <div class="col-lg-12 col-12">
+                        <div class="col-md-6">
+                            <h1 class="card-text p-2">New Student</h1>
+                            <select class="form-control" id="new_students" name="active_inactive">
+                                <option value="" disabled>Select Filters</option>
+                                <option value="0" selected>Current Year</option>
+                                <option value="1">Current Month</option>
+                                <option value="2">All Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="new_student"></div>
+                </div>`;
+    $('.graph_appended').prepend(html);
+  }
+
+  // Existing new_student function to fetch and render graph
+  function new_student(filterValue, type) {
+    $(".new_student").removeClass("d-none"); // Show the graph container
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/get_user_data",
+      data: {
+        filterValue: filterValue,
+        type: type
+      },
+      success: function(response) {
+        let xaxis = [];
+        let yaxis = [];
+        let responseData = response.data;
+
+        if (responseData && response.statusCode == 200) {
+          for (let i in responseData) {
+            xaxis.push(responseData[i].dataType);
+            yaxis.push(responseData[i].count);
+          }
+
+          if (new_studentChart) {
+            new_studentChart.destroy(); // Destroy any existing chart before rendering new one
+          }
+
+          var options = {
+            series: [{
+              name: "New Students",
+              data: yaxis
+            }],
+            chart: {
+              height: 350,
+              type: 'line',
+              zoom: {
+                enabled: false
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'straight'
+            },
+            title: {
+              text: 'New Students',
+              align: 'left'
+            },
+            grid: {
+              row: {
+                colors: ['#f3f3f3', 'transparent'],
+                opacity: 0.5
+              },
+            },
+            xaxis: {
+              categories: xaxis
+            }
+          };
+          new_studentChart = new ApexCharts(document.querySelector("#new_student"), options);
+          new_studentChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function() {
+        toastr.error("Failed to fetch data from the server.");
+      }
+    });
+  }
+
+  ////////End/////////
+
+
+  // coaches graph  starrt////
+  let new_coachChart; // Chart instance
+
+  function toggleCoachGraph(filterValue, type) {
+    const graphContainer = $(".new_coach");
+
+    if (graphContainer.length && !graphContainer.hasClass("d-none")) {
+      // If the graph is visible, hide it
+      graphContainer.addClass("d-none");
+      if (new_coachChart) {
+        new_coachChart.destroy(); // Destroy the chart if it's visible
+      }
+    } else {
+      // If the graph is not visible, show it
+      if (!graphContainer.length) {
+        // If the graph container is not yet created, create it
+        createCoachGraphContainer();
+      }
+      new_coach(filterValue, type); // Fetch and show the graph
+    }
+  }
+
+  function createCoachGraphContainer() {
+    let html = `<div class="card new_coach d-none">
+                    <div class="col-lg-12 col-12">
+                        <div class="col-md-6">
+                            <h1 class="card-text p-2">New Coach</h1>
+                            <select class="form-control" id="new_coachs" name="active_inactive">
+                                <option value="" disabled>Select Filters</option>
+                                <option value="0" selected>Current Year</option>
+                                <option value="1">Current Month</option>
+                                <option value="2">All Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="new_coach"></div>
+                </div>`;
+    $('.graph_appended').prepend(html);
+  }
+
+  // Existing new_coach function to fetch and render the graph
+  function new_coach(filterValue, type) {
+    $(".new_coach").removeClass("d-none"); // Show the graph container
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/get_user_data",
+      data: {
+        filterValue: filterValue,
+        type: type
+      },
+      success: function(response) {
+        let xaxis = [];
+        let yaxis = [];
+        let responseData = response.data;
+
+        if (responseData && response.statusCode == 200) {
+          for (let i in responseData) {
+            xaxis.push(responseData[i].dataType);
+            yaxis.push(responseData[i].count);
+          }
+
+          if (new_coachChart) {
+            new_coachChart.destroy(); // Destroy any existing chart before rendering new one
+          }
+
+          var options = {
+            series: [{
+              name: "New Coaches",
+              data: yaxis
+            }],
+            chart: {
+              height: 350,
+              type: 'line',
+              zoom: {
+                enabled: false
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'straight'
+            },
+            title: {
+              text: 'New Coaches',
+              align: 'left'
+            },
+            grid: {
+              row: {
+                colors: ['#f3f3f3', 'transparent'],
+                opacity: 0.5
+              },
+            },
+            xaxis: {
+              categories: xaxis
+            }
+          };
+          new_coachChart = new ApexCharts(document.querySelector("#new_coach"), options);
+          new_coachChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function() {
+        toastr.error("Failed to fetch data from the server.");
+      }
+    });
+  }
+  //////END///
+  // active student start//////
+  let active_studentChart; // Chart instance
+
+  function toggleActiveStudentGraph(filterValue, type) {
+    const graphContainer = $(".active_student");
+
+    if (graphContainer.length && !graphContainer.hasClass("d-none")) {
+      // If the graph is visible, hide it
+      graphContainer.addClass("d-none");
+      if (active_studentChart) {
+        active_studentChart.destroy(); // Destroy the chart if it's visible
+      }
+    } else {
+      // If the graph is not visible, show it
+      if (!graphContainer.length) {
+        // If the graph container is not yet created, create it
+        createActiveStudentGraphContainer();
+      }
+      active_student(filterValue, type); // Fetch and show the graph
+    }
+  }
+
+  function createActiveStudentGraphContainer() {
+    let html = `<div class="card active_student d-none">
+                    <div class="col-lg-12 col-12">
+                        <div class="col-md-6">
+                            <h1 class="card-text p-2">Active Student</h1>
+                            <select class="form-control" id="active_students" name="active_inactive">
+                                <option value="" disabled>Select Filters</option>
+                                <option value="0" selected>Current Year</option>
+                                <option value="1">Current MONTH</option>
+                                <option value="2">All Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="active_student"></div>
+                </div>`;
+    $('.graph_appended').prepend(html);
+  }
+
+  // Existing active_student function to fetch and render the graph
+  function active_student(filterValue, type) {
+    $(".active_student").removeClass("d-none"); // Show the graph container
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/get_user_data",
+      data: {
+        filterValue: filterValue,
+        type: type
+      },
+      success: function(response) {
+        let xaxis = [];
+        let yaxis = [];
+        let responseData = response.data;
+
+        if (responseData && response.statusCode == 200) {
+          for (let i in responseData) {
+            xaxis.push(responseData[i].dataType);
+            yaxis.push(responseData[i].count);
+          }
+
+          if (active_studentChart) {
+            active_studentChart.destroy(); // Destroy any existing chart before rendering new one
+          }
+
+          var options = {
+            series: [{
+              name: "Active Students",
+              data: yaxis
+            }],
+            chart: {
+              height: 350,
+              type: 'line',
+              zoom: {
+                enabled: false
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'straight'
+            },
+            title: {
+              text: 'Active Students',
+              align: 'left'
+            },
+            grid: {
+              row: {
+                colors: ['#f3f3f3', 'transparent'],
+                opacity: 0.5
+              },
+            },
+            xaxis: {
+              categories: xaxis
+            }
+          };
+          active_studentChart = new ApexCharts(document.querySelector("#active_student"), options);
+          active_studentChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function() {
+        toastr.error("Failed to fetch data from the server.");
+      }
+    });
+  }
+  ///END/////
+  // active coach start////////////
+  let active_coachChart; // Chart instance
+
+  function toggleActiveCoachGraph(filterValue, type) {
+    const graphContainer = $(".active_coach");
+
+    if (graphContainer.length && !graphContainer.hasClass("d-none")) {
+      // If the graph is visible, hide it
+      graphContainer.addClass("d-none");
+      if (active_coachChart) {
+        active_coachChart.destroy(); // Destroy the chart if it's visible
+      }
+    } else {
+      // If the graph is not visible, show it
+      if (!graphContainer.length) {
+        // If the graph container is not yet created, create it
+        createActiveCoachGraphContainer();
+      }
+      active_coach(filterValue, type); // Fetch and show the graph
+    }
+  }
+
+  function createActiveCoachGraphContainer() {
+    let html = `<div class="card active_coach d-none">
+                    <div class="col-lg-12 col-12">
+                        <div class="col-md-6">
+                            <h1 class="card-text p-2">Active Coach</h1>
+                            <select class="form-control" id="active_coaches" name="active_inactive">
+                                <option value="" disabled>Select Filters</option>
+                                <option value="0" selected>Current Year</option>
+                                <option value="1">Current MONTH</option>
+                                <option value="2">All Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="active_coach"></div>
+                </div>`;
+    $('.graph_appended').prepend(html);
+  }
+
+  // Existing active_coach function to fetch and render the graph
+  function active_coach(filterValue, type) {
+    $(".active_coach").removeClass("d-none"); // Show the graph container
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/get_user_data",
+      data: {
+        filterValue: filterValue,
+        type: type
+      },
+      success: function(response) {
+        let xaxis = [];
+        let yaxis = [];
+        let responseData = response.data;
+
+        if (responseData && response.statusCode == 200) {
+          for (let i in responseData) {
+            xaxis.push(responseData[i].dataType);
+            yaxis.push(responseData[i].count);
+          }
+
+          if (active_coachChart) {
+            active_coachChart.destroy(); // Destroy any existing chart before rendering new one
+          }
+
+          var options = {
+            series: [{
+              name: "Active Coaches",
+              data: yaxis
+            }],
+            chart: {
+              height: 350,
+              type: 'line',
+              zoom: {
+                enabled: false
+              }
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'straight'
+            },
+            title: {
+              text: 'Active Coaches',
+              align: 'left'
+            },
+            grid: {
+              row: {
+                colors: ['#f3f3f3', 'transparent'],
+                opacity: 0.5
+              },
+            },
+            xaxis: {
+              categories: xaxis
+            }
+          };
+          active_coachChart = new ApexCharts(document.querySelector("#active_coach"), options);
+          active_coachChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function() {
+        toastr.error("Failed to fetch data from the server.");
+      }
+    });
+  }
+  ////// END/////
+  // referral graph start////
+  let referral_graphChart;
+let isReferralGraphVisible = false; // Toggle state
+
+// Function to toggle the referral graph visibility
+function toggleReferralGraph(filterValue, type) {
+    if (isReferralGraphVisible) {
+        // If visible, hide the chart and set toggle state to false
+        $(".referral_graph").remove();
+        isReferralGraphVisible = false;
+    } else {
+        // If not visible, show the chart
+        referral_graph(filterValue, type);
+        isReferralGraphVisible = true;
+    }
+}
+
+// Function to fetch and render the referral graph
+function referral_graph(filterValue, type) {
+    $(".referral_graph").remove(); // Remove any existing graph
+    let html = `
+    <div class="card referral_graph d-none">
+        <div class="col-lg-12 col-12">
+            <div class="col-md-6">
+                <h1 class="card-text p-2">Referral Graph</h1>
+                <select class="form-control" id="referral_graphs" name="active_inactive">
+                    <option value="" disabled>Select Filters</option>
+                    <option value="0" selected>Current Year</option>
+                    <option value="1">MONTH</option>
+                    <option value="2">All Year</option>
+                </select>
+            </div>
+        </div>
+        <div id="referral_graph"></div>
+    </div>`;
+    $('.graph_appended').prepend(html); // Add the graph container
+
+    // Fetch data and render chart
+    $.ajax({
+        type: "POST",
+        url: "/admin/get_user_data",
+        data: {
+            filterValue: filterValue,
+            type: type
+        },
+        success: function(response) {
+            let xaxis = [];
+            let yaxis = [];
+            let responseData = response.data;
+
+            if (responseData && response.statusCode == 200) {
+                for (let i in responseData) {
+                    xaxis.push(responseData[i].dataType);
+                    yaxis.push(responseData[i].count);
+                }
+                $(".referral_graph").removeClass("d-none");
+                if (referral_graphChart) {
+                    referral_graphChart.destroy();
+                }
+                var options = {
+                    series: [{
+                        name: "Active Coaches",
+                        data: yaxis
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                        zoom: {
+                            enabled: false
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        curve: 'straight'
+                    },
+                    grid: {
+                        row: {
+                            colors: ['#f3f3f3', 'transparent'], // alternating grid colors
+                            opacity: 0.5
+                        },
+                    },
+                    xaxis: {
+                        categories: xaxis
+                    }
+                };
+                referral_graphChart = new ApexCharts(document.querySelector("#referral_graph"), options);
+                referral_graphChart.render();
+            } else {
+                toastr.error("Something went wrong");
+            }
+        },
+        error: function() {
+            toastr.error("Failed to fetch data from the server.");
+        }
+    });
+}
+
+//////END///
+
+// Handle filter change
+$(document).on('change', '#referral_graphs', function() {
+    var selectedFilter = $(this).val();
+    referral_graph(selectedFilter, 5);
+});
+
+
+///topLocation start////
+let topLocationChart;
+let isTopLocationVisible = false; // Toggle state
+
+// Function to toggle the top location chart visibility
+function toggleTopLocation(selectedFilter) {
+    if (isTopLocationVisible) {
+        // If visible, hide the chart and set toggle state to false
+        $(".topLocation").remove();
+        isTopLocationVisible = false;
+    } else {
+        // If not visible, show the chart
+        topLocation(selectedFilter);
+        isTopLocationVisible = true;
+    }
+}
+
+// Function to fetch and render the top locations chart
+function topLocation(selectedFilter) {
+    $(".topLocation").remove(); // Remove any existing chart
+    let html = `
+    <div class="card topLocation d-none">
+        <div class="col-lg-12 col-12">
+            <h1 class="card-text p-2">Top Locations</h1>
+        </div>
+        <div class="topLocation"></div>
+    </div>`;
+    $('.graph_appended').prepend(html); // Add the graph container
+
+    // Fetch data and render chart
+    $.ajax({
+        type: "POST",
+        url: "/admin/get_location_data",
+        data: {
+            selectedFilter: selectedFilter
+        },
+        success: function(response) {
+            let Location = response.location;
+            let numberCount = response.numberOfcount;
+
+            $(".topLocation").removeClass("d-none");
+            if (topLocationChart) {
+                topLocationChart.destroy();
+            }
+
+            // Generate random colors for the bars
+            const randomColors = Array.from({ length: Location.length }, () => {
+                return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+            });
+
+            var options = {
+                series: [{
+                    data: numberCount
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        borderRadiusApplication: 'end',
+                        horizontal: true
+                    }
+                },
+                colors: randomColors, // Apply random colors to bars
+                dataLabels: {
+                    enabled: false
+                },
+                xaxis: {
+                    categories: Location
+                }
+            };
+            topLocationChart = new ApexCharts(document.querySelector(".topLocation"), options);
+            topLocationChart.render();
+        },
+        error: function(error) {
+            console.error("Error fetching data:", error);
+        }
+    });
+}
+
+// Handle filter change
+$(document).on('change', '#top_locations', function() {
+    var selectedFilter = $(this).val();
+    topLocation(selectedFilter);
+});
+/////End///////
+
+
+  /////////Session_Completion Start////////
+  let Session_CompletionChart; // Chart instance
+
+  function toggleSessionCompletion(filterValue, type) {
+    const graphContainer = $(".Session_Completion");
+
+    if (graphContainer.length && !graphContainer.hasClass("d-none")) {
+      // If the graph is visible, hide it
+      graphContainer.addClass("d-none");
+      if (Session_CompletionChart) {
+        Session_CompletionChart.destroy(); // Destroy the chart if it's visible
+      }
+    } else {
+      // If the graph is not visible, show it
+      if (!graphContainer.length) {
+        // If the graph container is not yet created, create it
+        createSessionCompletionGraphContainer();
+      }
+      Session_Completion(filterValue, type); // Fetch and show the graph
+    }
+  }
+
+  function createSessionCompletionGraphContainer() {
+    let html = `<div class="card Session_Completion d-none">
+                    <div class="col-lg-12 col-12">
+                        <div class="col-md-6">
+                            <h1 class="card-text p-2">Session Completion Rate</h1>
+                            <select class="form-control" id="Session_Completions" name="Session_Completion">
+                                <option value="" disabled>Select Filters</option>
+                                <option value="0" selected>Current Year</option>
+                                <option value="1">MONTH</option>
+                                <option value="2">All Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="Session_Completion"></div>
+                </div>`;
+    $('.graph_appended').prepend(html);
+  }
+
+  // Existing Session_Completion function to fetch and render the graph
+  function Session_Completion(filterValue, type) {
+    $(".Session_Completion").removeClass("d-none"); // Show the graph container
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/get_booking",
+      data: {
+        filterValue,
+        type
+      },
+      success: function(response) {
+        let xaxis = [];
+        let yaxis = [];
+        let responseData = response.data;
+
+        if (responseData && response.statusCode == 200) {
+          for (let i in responseData) {
+            xaxis.push(responseData[i].dataType);
+            yaxis.push(responseData[i].count);
+          }
+
+          if (Session_CompletionChart) {
+            Session_CompletionChart.destroy(); // Destroy any existing chart before rendering a new one
+          }
+
+          var options = {
+            series: [{
+              name: 'Complete',
+              data: yaxis
+            }],
+            chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+              },
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              show: true,
+              width: 2,
+              colors: ['transparent']
+            },
+            xaxis: {
+              categories: xaxis,
+            },
+            yaxis: {
+              title: {
+                text: 'Total Booking'
+              }
+            },
+            fill: {
+              opacity: 1
+            },
+            tooltip: {
+              y: {
+                formatter: function(val) {
+                  return val
+                }
+              }
+            }
+          };
+
+          Session_CompletionChart = new ApexCharts(document.querySelector("#Session_Completion"), options);
+          Session_CompletionChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function(error) {
+        toastr.error("Error fetching data:", error);
+      }
+    });
+  }
+
+
+  //////END//////
+
+  //////////Start TotalRevenue//////
+  let TotalRevenueChart; // Chart instance
+
+  function toggleTotalRevenue(filterValue, type) {
+    const graphContainer = $(".TotalRevenue");
+
+    if (graphContainer.length && !graphContainer.hasClass("d-none")) {
+      // If the graph is visible, hide it
+      graphContainer.addClass("d-none");
+      if (TotalRevenueChart) {
+        TotalRevenueChart.destroy(); // Destroy the chart if it's visible
+      }
+    } else {
+      // If the graph is not visible, show it
+      if (!graphContainer.length) {
+        // If the graph container is not yet created, create it
+        createTotalRevenueGraphContainer();
+      }
+      TotalRevenue(filterValue, type); // Fetch and show the graph
+    }
+  }
+
+  function createTotalRevenueGraphContainer() {
+    let html = `<div class="card TotalRevenue d-none">
+                    <div class="col-lg-12 col-12">
+                        <div class="col-md-6">
+                            <h1 class="card-text p-2">Total Revenues</h1>
+                            <select class="form-control" id="TotalRevenues" name="TotalRevenue">
+                                <option value="" disabled>Select Filters</option>
+                                <option value="0" selected>Current Year</option>
+                                <option value="1">MONTH</option>
+                                <option value="2">All Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="TotalRevenue"></div>
+                </div>`;
+    $('.graph_appended').prepend(html);
+  }
+
+  // Existing TotalRevenue function to fetch and render the graph
+  function TotalRevenue(filterValue, type) {
+    $(".TotalRevenue").removeClass("d-none"); // Show the graph container
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/get_booking",
+      data: {
+        filterValue,
+        type
+      },
+      success: function(response) {
+        let xaxis = [];
+        let yaxis = [];
+        let responseData = response.data;
+
+        if (responseData && response.statusCode == 200) {
+          for (let i in responseData) {
+            xaxis.push(responseData[i].dataType);
+            yaxis.push(responseData[i].count);
+          }
+
+          if (TotalRevenueChart) {
+            TotalRevenueChart.destroy(); // Destroy any existing chart before rendering a new one
+          }
+
+          var options = {
+            series: [{
+              name: 'Revenue',
+              data: yaxis
+            }],
+            chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+              },
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              show: true,
+              width: 2,
+              colors: ['transparent']
+            },
+            xaxis: {
+              categories: xaxis,
+            },
+            yaxis: {
+              title: {
+                text: 'Total Revenue (SGD)'
+              }
+            },
+            fill: {
+              opacity: 1
+            },
+            tooltip: {
+              y: {
+                formatter: function(val) {
+                  return "SGD " + val
+                }
+              }
+            }
+          };
+
+          TotalRevenueChart = new ApexCharts(document.querySelector("#TotalRevenue"), options);
+          TotalRevenueChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function(error) {
+        toastr.error("Error fetching data:", error);
+      }
+    });
+  }
+
+  //////END ///////
+  ///////////retention_rate start//// 
+  let RetentionRateChart; // Chart instance
+
+  function toggleRetentionRate(filterValue) {
+    const graphContainer = $(".RetentionRate");
+
+    if (graphContainer.length && !graphContainer.hasClass("d-none")) {
+      // If the graph is visible, hide it
+      graphContainer.addClass("d-none");
+      if (RetentionRateChart) {
+        RetentionRateChart.destroy(); // Destroy the chart if it's visible
+      }
+    } else {
+      // If the graph is not visible, show it
+      if (!graphContainer.length) {
+        // If the graph container is not yet created, create it
+        createRetentionRateGraphContainer();
+      }
+      retention_rate(filterValue); // Fetch and show the graph
+    }
+  }
+
+  function createRetentionRateGraphContainer() {
+    let html = `<div class="card RetentionRate d-none">
+                    <div class="col-lg-12 col-12">
+                        <div class="col-md-6">
+                            <h1 class="card-text p-2">Retention Rate</h1>
+                            <select class="form-control" id="RetentionRates" name="RetentionRate">
+                                <option value="" disabled>Select Filters</option>
+                                <option value="0" selected>Current Year</option>
+                                <option value="1">MONTH</option>
+                                <option value="2">All Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="RetentionRate"></div>
+                </div>`;
+    $('.graph_appended').prepend(html);
+  }
+
+  // Existing retention_rate function to fetch and render the graph
+  function retention_rate(filterValue) {
+    $(".RetentionRate").removeClass("d-none"); // Show the graph container
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/retention_rate",
+      data: {
+        filterValue,
+        type: 0
+      },
+      success: function(response) {
+        let Student = [];
+        let Coach = [];
+        let dates = [];
+        let responseData = response.data;
+        dates = responseData.dates;
+        let coachData = responseData.coachData;
+        let studentData = responseData.studentData;
+
+        if (responseData && response.statusCode == 200) {
+          for (let i in coachData) {
+            Student.push(coachData[i].retentionRate);
+            Coach.push(studentData[i].retentionRate);
+          }
+
+          if (RetentionRateChart) {
+            RetentionRateChart.destroy(); // Destroy any existing chart before rendering new one
+          }
+
+          var options = {
+            series: [{
+              name: 'Student',
+              data: Student
+            }, {
+              name: 'Coach',
+              data: Coach
+            }],
+            chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                borderRadius: 5,
+                borderRadiusApplication: 'end'
+              },
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              show: true,
+              width: 2,
+              colors: ['transparent']
+            },
+            xaxis: {
+              categories: dates,
+            },
+            yaxis: {
+              title: {
+                text: '% RetentionRate'
+              }
+            },
+            fill: {
+              opacity: 1
+            },
+            tooltip: {
+              y: {
+                formatter: function(val) {
+                  return val
+                }
+              }
+            }
+          };
+
+          RetentionRateChart = new ApexCharts(document.querySelector("#RetentionRate"), options);
+          RetentionRateChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function(error) {
+        toastr.error("Error fetching data:", error);
+      }
+    });
+  }
+
+  ////////END///
+
+
+  /////////GrowthRates Start///////
+  let GrowthRateChart;
+let isGrowthRateVisible = false; // Track if the graph is visible
+
+function GrowthRate(filterValue) {
+    // Check if the graph is already visible
+    if (isGrowthRateVisible) {
+        // If the graph is visible, remove it and hide the card
+        $(".GrowthRate").remove();
+        isGrowthRateVisible = false; // Update visibility status
+    } else {
+        // If the graph is not visible, show it
+        let html = `
+        <div class="card GrowthRate d-none">
+            <div class="col-lg-12 col-12">
+                <div class="col-md-6">
+                    <h1 class="card-text p-2">Growth Rate</h1>
+                    <select class="form-control" id="GrowthRates" name="GrowthRate">
+                        <option value="" disabled>Select Filters</option>
+                        <option value="0" selected>Current Year</option>
+                        <option value="1">MONTH</option>
+                        <option value="2">All Year</option>
+                    </select>
+                </div>
+            </div>
+            <div id="GrowthRate"></div>
+        </div>`;
+
+        $('.graph_appended').prepend(html);
+
+        // Fetch data and render the chart
+        $.ajax({
+            type: "POST",
+            url: "/admin/growth_rate",
+            data: {
+                filterValue: filterValue,
+                type: 0
+            },
+            success: function(response) {
+                let studentGrowth = [];
+                let revenueGrowth = [];
+                let coachGrowth = [];
+                let dates = [];
+                let responseData = response.data;
+
+                if (responseData) {
+                    // Loop through response data to extract growth values
+                    for (let i in responseData) {
+                        studentGrowth.push(responseData[i].studentGrowth);
+                        coachGrowth.push(responseData[i].coachGrowth);
+                        revenueGrowth.push(responseData[i].revenueGrowth);
+                        dates.push(responseData[i].date);
+                    }
+
+                    $(".GrowthRate").removeClass("d-none"); // Show chart container
+
+                    if (GrowthRateChart) {
+                        GrowthRateChart.destroy(); // Destroy the previous chart instance
+                    }
+
+                    // Define chart options
+                    var options = {
+                        series: [{
+                            name: 'Student Growth',
+                            data: studentGrowth
+                        }, {
+                            name: 'Coach Growth',
+                            data: coachGrowth
+                        }, {
+                            name: 'Revenue Growth',
+                            data: revenueGrowth
+                        }],
+                        chart: {
+                            type: 'bar',
+                            height: 350
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                columnWidth: '55%',
+                                borderRadius: 5,
+                                borderRadiusApplication: 'end'
+                            }
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            show: true,
+                            width: 2,
+                            colors: ['transparent']
+                        },
+                        xaxis: {
+                            categories: dates
+                        },
+                        yaxis: {
+                            title: {
+                                text: '% Growth Rate'
+                            }
+                        },
+                        fill: {
+                            opacity: 1
+                        },
+                        tooltip: {
+                            y: {
+                                formatter: function(val) {
+                                    return val + "%";
+                                }
+                            }
+                        }
+                    };
+
+                    // Render the chart using ApexCharts
+                    GrowthRateChart = new ApexCharts(document.querySelector("#GrowthRate"), options);
+                    GrowthRateChart.render();
+
+                    // Set the visibility flag to true
+                    isGrowthRateVisible = true;
+                } else {
+                    toastr.error("Something went wrong");
+                }
+            },
+            error: function(error) {
+                toastr.error("Error fetching data:", error);
+            }
+        });
+    }
+}
+
+
+  ///////END/////
+
+
+  ///////AverageTransaction Start////
+  let AverageTransactionChart;
+  let isAverageTransactionVisible = false; // Toggle state
+
+  function toggleAverageTransaction(filterValue) {
+    if (isAverageTransactionVisible) {
+      // If visible, remove the chart and set visibility to false
+      $(".AverageTransaction").remove();
+      isAverageTransactionVisible = false;
+    } else {
+      // If not visible, show the chart
+      AverageTransaction(filterValue);
+      isAverageTransactionVisible = true;
+    }
+  }
+
+  function AverageTransaction(filterValue) {
+    $(".AverageTransaction").remove(); // Remove any existing chart
+    let html = `
+    <div class="card AverageTransaction">
+        <div class="col-lg-12 col-12">
+            <div class="col-md-6">
+                <h1 class="card-text p-2">Average Transaction By Student</h1>
+                <select class="form-control" id="AverageTransactions" name="AverageTransaction">
+                    <option value="" disabled>Select Filters</option>
+                    <option value="0" selected>Current Year</option>
+                    <option value="1">MONTH</option>
+                    <option value="2">All Year</option>
+                </select>
+            </div>
+        </div>
+        <div id="AverageTransaction"></div>
+    </div>`;
+    $('.graph_appended').prepend(html); // Add the chart card
+
+    // Fetch data and render chart
+    $.ajax({
+      type: "POST",
+      url: "/admin/average_transaction",
+      data: {
+        filterValue,
+        type: 0
+      },
+      success: function(response) {
+        let average = [];
+        let date = [];
+        let responseData = response.data;
+        if (responseData) {
+          for (let i in responseData) {
+            average.push(responseData[i].average);
+            date.push(responseData[i].date);
+          }
+          if (AverageTransactionChart) {
+            AverageTransactionChart.destroy();
+          }
+          var options = {
+            series: [{
+              name: 'Average Transaction',
+              data: average
+            }],
+            chart: {
+              height: 350,
+              type: 'area'
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              curve: 'smooth'
+            },
+            xaxis: {
+              type: 'datetime',
+              categories: date
+            },
+            tooltip: {
+              x: {
+                format: 'dd/MM/yy HH:mm'
+              }
+            },
+          };
+          AverageTransactionChart = new ApexCharts(document.querySelector("#AverageTransaction"), options);
+          AverageTransactionChart.render();
+        } else {
+          toastr.error("Something went wrong");
+        }
+      },
+      error: function(error) {
+        toastr.error("Error fetching data:", error);
+      }
+    });
+  }
+
+  // Handle filter change
+  $(document).on('change', '#AverageTransactions', function() {
+    var selectedFilter = $(this).val();
+    AverageTransaction(selectedFilter);
+  });
+
+
+
+  //////END////
+
+
+  //////ChurnRate Start//////
+  let ChurnRateChart;
+let isChurnRateVisible = false; // Toggle state
+
+function toggleChurnRate(filterValue) {
+    if (isChurnRateVisible) {
+        // If visible, remove the chart and set visibility to false
+        $(".ChurnRate").remove();
+        isChurnRateVisible = false;
+    } else {
+        // If not visible, show the chart
+        ChurnRate(filterValue);
+        isChurnRateVisible = true;
+    }
+}
+
+function ChurnRate(filterValue) {
+    $(".ChurnRate").remove(); // Remove any existing chart
+    let html = `
+    <div class="card ChurnRate">
+        <div class="col-lg-12 col-12">
+            <div class="col-md-6">
+                <h1 class="card-text p-2">Churn Rate</h1>
+                <select class="form-control" id="ChurnRates" name="ChurnRate">
+                    <option value="" disabled>Select Filters</option>
+                    <option value="0" selected>Current Year</option>
+                    <option value="1">MONTH</option>
+                    <option value="2">All Year</option>
+                </select>
+            </div>
+        </div>
+        <div id="ChurnRate"></div>
+    </div>`;
+    $('.graph_appended').prepend(html); // Add the chart card
+
+    // Fetch data and render chart
+    $.ajax({
+        type: "POST",
+        url: "/admin/churn_rate",
+        data: { filterValue, type: 0 },
+        success: function(response) {
+            let churnRateStudent = [];
+            let churnRateCoach = [];
+            let date = [];
+            let student = response.student;
+            let coach = response.coach;
+
+            if (student && coach) {
+                for (let i in student) {
+                    churnRateStudent.push(student[i].churnRate);
+                    churnRateCoach.push(coach[i].churnRate); // Assuming the same structure for both student and coach
+                    date.push(student[i].dataType);
+                }
+                if (ChurnRateChart) {
+                    ChurnRateChart.destroy();
+                }
+                var options = {
+                    series: [{
+                        name: 'Student',
+                        data: churnRateStudent
+                    }, {
+                        name: 'Coach',
+                        data: churnRateCoach
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '55%',
+                            borderRadius: 5,
+                            borderRadiusApplication: 'end'
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        show: true,
+                        width: 2,
+                        colors: ['transparent']
+                    },
+                    xaxis: {
+                        categories: date,
+                    },
+                    yaxis: {
+                        title: {
+                            text: '% ChurnRate'
+                        }
+                    },
+                    fill: {
+                        opacity: 1
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(val) {
+                                return "% " + val;
+                            }
+                        }
+                    }
+                };
+                ChurnRateChart = new ApexCharts(document.querySelector("#ChurnRate"), options);
+                ChurnRateChart.render();
+            } else {
+                toastr.error("Something went wrong");
+            }
+        },
+        error: function(error) {
+            toastr.error("Error fetching data:", error);
+        }
+    });
+}
+
+// Handle filter change
+$(document).on('change', '#ChurnRates', function() {
+    var selectedFilter = $(this).val();
+    ChurnRate(selectedFilter);
+});
+
+</script>
